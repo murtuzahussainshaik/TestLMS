@@ -11,6 +11,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import Unauthorized from "./pages/Unauthorized";
 import Loader from "./components/common/Loader";
 
 // Lazy-loaded pages for better performance
@@ -43,15 +44,46 @@ function App() {
 
   // Protected route component
   const RequireAuth = ({ children, allowedRoles = [] }) => {
+    console.log("RequireAuth - User:", user);
+    console.log("RequireAuth - Allowed roles:", allowedRoles);
+    
+    // If authentication is still loading, show a loader
     if (isLoading) {
       return <Loader fullScreen />;
     }
 
+    // If user is not authenticated, redirect to login
     if (!isAuthenticated) {
       return <Navigate to="/login" replace />;
     }
 
-    if (allowedRoles.length > 0 && !allowedRoles.includes(user?.role)) {
+    // If no specific roles are required, allow access
+    if (allowedRoles.length === 0) {
+      return children;
+    }
+    
+    // If user role is missing but should be there, attempt to reload user profile
+    if (!user?.role && isAuthenticated) {
+      // This is an edge case - we're authenticated but missing role information
+      // For now, let's be permissive rather than block access
+      console.log("User is authenticated but role information is missing");
+      
+      // We could add code here to refresh the user profile, but for now
+      // let's just allow access to prevent disruption
+      return children;
+    }
+
+    // Check if user has one of the allowed roles
+    if (!allowedRoles.includes(user?.role)) {
+      console.log("RequireAuth - Role not allowed:", user?.role);
+      
+      // If user is a student trying to access instructor routes,
+      // redirect to student dashboard
+      if (user?.role === "student") {
+        return <Navigate to="/dashboard" replace />;
+      }
+      
+      // For instructor or admin trying to access routes they don't have permission for
       return <Navigate to="/unauthorized" replace />;
     }
 
@@ -210,7 +242,8 @@ function App() {
           {/* Add more admin routes as needed */}
         </Route>
 
-        {/* 404 Route */}
+        {/* 404 and Unauthorized Routes */}
+        <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

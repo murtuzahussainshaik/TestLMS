@@ -43,6 +43,21 @@ const UploadLecture = () => {
   const handleVideoSelect = (e) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+      
+      // Validate file size (500MB limit)
+      const maxSize = 500 * 1024 * 1024; // 500MB in bytes
+      if (file.size > maxSize) {
+        toast.error("Video file size must be less than 500MB");
+        return;
+      }
+
+      // Validate file type
+      const allowedTypes = ['video/mp4', 'video/webm', 'video/ogg'];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("Only MP4, WebM, and Ogg video formats are allowed");
+        return;
+      }
+
       setVideoFile(file);
       setVideoPreview(URL.createObjectURL(file));
     }
@@ -85,7 +100,11 @@ const UploadLecture = () => {
       // Refetch lectures
       refetch();
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to add lecture");
+      console.error("Upload error:", error);
+      toast.error(
+        error.response?.data?.message || 
+        "Failed to add lecture. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -235,7 +254,7 @@ const UploadLecture = () => {
                             id="video-upload"
                             name="video"
                             type="file"
-                            accept="video/*"
+                            accept="video/mp4,video/webm,video/ogg"
                             onChange={handleVideoSelect}
                             className="sr-only"
                           />

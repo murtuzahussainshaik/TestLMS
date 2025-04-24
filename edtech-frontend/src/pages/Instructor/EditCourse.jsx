@@ -101,9 +101,18 @@ const EditCourse = () => {
 
       // Create form data for API request
       const apiFormData = new FormData();
+      
+      // Handle isPublished checkbox explicitly
+      const isPublished = formData.isPublished || false;
+      delete formData.isPublished;
+      
+      // Add all other form fields
       Object.keys(formData).forEach((key) => {
         apiFormData.append(key, formData[key]);
       });
+      
+      // Add isPublished as a boolean string
+      apiFormData.append("isPublished", isPublished.toString());
 
       // Append thumbnail file if changed
       if (thumbnailFile) {
@@ -111,9 +120,16 @@ const EditCourse = () => {
       }
 
       // Update course
-      await courseService.updateCourseDetails(courseId, apiFormData);
-
+      const response = await courseService.updateCourseDetails(courseId, apiFormData);
+      
       toast.success("Course updated successfully");
+      
+      // Show specific message about publish status
+      if (response.data.isPublished) {
+        toast.success("Your course is now published and visible to students!");
+      } else {
+        toast.info("Your course is saved as a draft and is not visible to students.");
+      }
 
       // Navigate back to courses list
       navigate("/instructor/courses");
@@ -282,16 +298,14 @@ const EditCourse = () => {
                 htmlFor="price"
                 className="block text-sm font-medium text-secondary-700"
               >
-                Price (₹) <span className="text-red-500">*</span>
+                Price (INR) <span className="text-red-500">*</span>
               </label>
               <input
                 id="price"
                 type="number"
-                min="0"
-                step="0.01"
                 {...register("price", {
                   required: "Price is required",
-                  min: { value: 0, message: "Price cannot be negative" },
+                  min: { value: 0, message: "Price must be positive" },
                 })}
                 className={`mt-1 input ${errors.price ? "border-red-300" : ""}`}
               />
@@ -314,7 +328,7 @@ const EditCourse = () => {
                 htmlFor="isPublished"
                 className="ml-2 block text-sm text-secondary-900"
               >
-                Publish course (make it visible to students)
+                Publish this course (make it visible to students)
               </label>
             </div>
 

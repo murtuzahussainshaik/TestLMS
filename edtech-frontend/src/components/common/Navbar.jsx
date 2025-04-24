@@ -83,14 +83,23 @@ const Navbar = () => {
                     onClick={toggleProfile}
                     className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                   >
-                    {user?.avatar ? (
+                    {user?.avatar && user.avatar !== "undefined" ? (
                       <img
-                        className="h-8 w-8 rounded-full object-cover"
+                        className="h-8 w-8 rounded-full object-cover border border-secondary-200"
                         src={user.avatar}
                         alt={user.name}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.style.display = 'none';
+                          e.target.parentElement.innerHTML = '<div class="h-8 w-8 rounded-full bg-secondary-100 flex items-center justify-center"><span class="text-secondary-600 font-medium text-sm">' + (user?.name?.charAt(0).toUpperCase() || 'U') + '</span></div>';
+                        }}
                       />
                     ) : (
-                      <UserCircleIcon className="h-8 w-8 text-secondary-400" />
+                      <div className="h-8 w-8 rounded-full bg-secondary-100 flex items-center justify-center">
+                        <span className="text-secondary-600 font-medium text-sm">
+                          {user?.name?.charAt(0).toUpperCase() || 'U'}
+                        </span>
+                      </div>
                     )}
                   </button>
                 </div>
@@ -211,14 +220,23 @@ const Navbar = () => {
             {isAuthenticated ? (
               <>
                 <div className="flex items-center px-4">
-                  {user?.avatar ? (
+                  {user?.avatar && user.avatar !== "undefined" ? (
                     <img
-                      className="h-10 w-10 rounded-full object-cover"
+                      className="h-10 w-10 rounded-full object-cover border border-secondary-200"
                       src={user.avatar}
                       alt={user.name}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.style.display = 'none';
+                        e.target.parentElement.innerHTML = '<div class="h-10 w-10 rounded-full bg-secondary-100 flex items-center justify-center"><span class="text-secondary-600 font-medium text-sm">' + (user?.name?.charAt(0).toUpperCase() || 'U') + '</span></div>';
+                      }}
                     />
                   ) : (
-                    <UserCircleIcon className="h-10 w-10 text-secondary-400" />
+                    <div className="h-10 w-10 rounded-full bg-secondary-100 flex items-center justify-center">
+                      <span className="text-secondary-600 font-medium text-sm">
+                        {user?.name?.charAt(0).toUpperCase() || 'U'}
+                      </span>
+                    </div>
                   )}
                   <div className="ml-3">
                     <div className="text-base font-medium text-secondary-800">

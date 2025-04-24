@@ -9,6 +9,7 @@ import {
   getCourseDetails,
   addLectureToCourse,
   getCourseLectures,
+  toggleCoursePublish,
 } from "../controllers/course.controller.js";
 import upload from "../utils/multer.js";
 
@@ -36,6 +37,9 @@ router
     upload.single("thumbnail"),
     updateCourseDetails
   );
+
+// Course publish toggle
+router.patch("/c/:courseId/publish", restrictTo("instructor"), toggleCoursePublish);
 
 // Lecture management
 router

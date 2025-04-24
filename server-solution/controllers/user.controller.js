@@ -103,11 +103,14 @@ export const updateUserProfile = catchAsync(async (req, res) => {
   // Handle avatar upload if provided
   if (req.file) {
     const avatarResult = await uploadMedia(req.file.path);
-    updateData.avatar = avatarResult?.secure_url || req.file.path;
+    if (!avatarResult || !avatarResult.secure_url) {
+      throw new AppError("Failed to upload avatar", 500);
+    }
+    updateData.avatar = avatarResult.secure_url;
 
     // Delete old avatar if it's not the default
     const user = await User.findById(req.id);
-    if (user.avatar && user.avatar !== "default-avatar.png") {
+    if (user.avatar && !user.avatar.includes("default-avatar")) {
       await deleteMediaFromCloudinary(user.avatar);
     }
   }
@@ -116,7 +119,7 @@ export const updateUserProfile = catchAsync(async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(req.id, updateData, {
     new: true,
     runValidators: true,
-  });
+  }).select("+avatar");  // Explicitly include avatar field
 
   if (!updatedUser) {
     throw new AppError("User not found", 404);

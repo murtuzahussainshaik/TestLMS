@@ -10,10 +10,16 @@ import LectureList from "../../components/courses/LectureList";
 import { toast } from "react-hot-toast";
 import {
   StarIcon,
-  ClockIcon,
   UserIcon,
-  AcademicCapIcon,
   CheckCircleIcon,
+} from "@heroicons/react/24/solid";
+import {
+  AcademicCapIcon,
+  ClockIcon,
+  UserGroupIcon,
+  DevicePhoneMobileIcon,
+} from "@heroicons/react/24/outline";
+import {
   ShoppingCartIcon,
   PlayIcon,
 } from "@heroicons/react/24/solid";

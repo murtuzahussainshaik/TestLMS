@@ -47,10 +47,16 @@ const Register = () => {
       setIsLoading(true);
       // Remove confirmPassword before submitting
       const { confirmPassword, ...registrationData } = formData;
-      await register(registrationData);
+      console.log("Registering with role:", registrationData.role);
+      const response = await register(registrationData);
+      console.log("Registration response:", response);
       toast.success("Registration successful!");
+      
+      // For now, redirect all users to the student dashboard
+      // This allows them to see content while their role is being processed
       navigate("/dashboard");
     } catch (error) {
+      console.error("Registration error:", error);
       toast.error(error.response?.data?.message || "Registration failed");
     } finally {
       setIsLoading(false);

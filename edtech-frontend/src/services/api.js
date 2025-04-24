@@ -12,10 +12,20 @@ const api = axios.create({
   withCredentials: true, // Important for cookies
 });
 
+// Helper function to get token from multiple storage options
+const getAuthToken = () => {
+  // Try to get token from cookies first
+  const tokenFromCookie = Cookies.get("token");
+  if (tokenFromCookie) return tokenFromCookie;
+  
+  // Fallback to localStorage
+  return localStorage.getItem("auth_token");
+};
+
 // Request interceptor for authentication
 api.interceptors.request.use(
   (config) => {
-    const token = Cookies.get("token");
+    const token = getAuthToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -32,7 +42,8 @@ api.interceptors.response.use(
 
     // Handle unauthorized error
     if (response && response.status === 401) {
-      Cookies.remove("token");
+      Cookies.remove("token", { path: "/" });
+      localStorage.removeItem("auth_token");
       window.location.href = "/login";
     }
 

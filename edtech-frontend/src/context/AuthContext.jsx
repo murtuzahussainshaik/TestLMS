@@ -70,7 +70,16 @@ export const AuthProvider = ({ children }) => {
     const checkAuthStatus = async () => {
       try {
         dispatch({ type: AUTH_START });
-        const token = Cookies.get("token");
+        
+        // Try to get token from cookies or localStorage
+        const tokenFromCookie = Cookies.get("token");
+        const tokenFromStorage = localStorage.getItem("auth_token");
+        const token = tokenFromCookie || tokenFromStorage;
+        
+        // If a token was found in localStorage but not in cookies, set it in cookies too
+        if (!tokenFromCookie && tokenFromStorage) {
+          setAuthToken(tokenFromStorage);
+        }
 
         if (!token) {
           dispatch({ type: AUTH_LOGOUT });
@@ -99,12 +108,49 @@ export const AuthProvider = ({ children }) => {
     checkAuthStatus();
   }, []);
 
+  // Helper function to set tokens with proper cookie options
+  const setAuthToken = (token) => {
+    if (token) {
+      // Set token with proper options to ensure it persists
+      Cookies.set("token", token, {
+        expires: 7, // Expires in 7 days
+        path: "/",
+        sameSite: "Lax",
+        secure: window.location.protocol === "https:",
+      });
+      
+      // Also store in localStorage as a fallback
+      localStorage.setItem("auth_token", token);
+    }
+  };
+
   // Register a new user
   const register = async (userData) => {
     try {
       dispatch({ type: AUTH_START });
       const response = await authService.register(userData);
+      
+      // Store the token properly
+      if (response.token) {
+        setAuthToken(response.token);
+      }
+      
+      // Fetch complete user profile after registration
+      try {
+        const userProfile = await authService.getCurrentUser();
+        if (userProfile && userProfile.data) {
+          console.log("User profile after registration:", userProfile.data);
+          dispatch({
+            type: AUTH_SUCCESS,
+            payload: userProfile.data,
+          });
+          return { ...response, user: userProfile.data };
+        }
+      } catch (profileError) {
+        console.error("Error fetching user profile after registration:", profileError);
+      }
 
+      // Fallback to using the response user data
       dispatch({
         type: AUTH_SUCCESS,
         payload: response.user,
@@ -126,7 +172,30 @@ export const AuthProvider = ({ children }) => {
     try {
       dispatch({ type: AUTH_START });
       const response = await authService.login(credentials);
+      
+      // Store the token properly
+      if (response.token) {
+        setAuthToken(response.token);
+      }
+      
+      // Fetch complete user profile after login if not already provided
+      if (typeof response.user === 'string' || !response.user?.role) {
+        try {
+          const userProfile = await authService.getCurrentUser();
+          if (userProfile && userProfile.data) {
+            console.log("User profile after login:", userProfile.data);
+            dispatch({
+              type: AUTH_SUCCESS,
+              payload: userProfile.data,
+            });
+            return { ...response, user: userProfile.data };
+          }
+        } catch (profileError) {
+          console.error("Error fetching user profile after login:", profileError);
+        }
+      }
 
+      // Use the response user data if available
       dispatch({
         type: AUTH_SUCCESS,
         payload: response.user,
@@ -147,7 +216,9 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await authService.logout();
-      Cookies.remove("token");
+      // Remove both cookie and localStorage
+      Cookies.remove("token", { path: "/" });
+      localStorage.removeItem("auth_token");
       dispatch({ type: AUTH_LOGOUT });
     } catch (error) {
       console.error("Logout error:", error);
@@ -159,10 +230,20 @@ export const AuthProvider = ({ children }) => {
     try {
       dispatch({ type: AUTH_START });
       const response = await authService.updateProfile(formData);
+      
+      if (!response.data) {
+        throw new Error("No data received from server");
+      }
+
+      // Ensure we have the complete user data
+      const userData = {
+        ...response.data,
+        avatar: response.data.avatar || state.user?.avatar,
+      };
 
       dispatch({
         type: AUTH_SUCCESS,
-        payload: response.data,
+        payload: userData,
       });
 
       return response;
@@ -206,6 +287,26 @@ export const AuthProvider = ({ children }) => {
     return state.user?.role === "admin";
   };
 
+  // Utility function to refresh user profile when needed
+  const refreshUserProfile = async () => {
+    try {
+      dispatch({ type: AUTH_START });
+      const { data } = await authService.getCurrentUser();
+      
+      if (data) {
+        dispatch({
+          type: AUTH_SUCCESS,
+          payload: data,
+        });
+        return data;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error refreshing user profile:", error);
+      return null;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -217,6 +318,7 @@ export const AuthProvider = ({ children }) => {
         changePassword,
         isInstructor,
         isAdmin,
+        refreshUserProfile,
       }}
     >
       {children}

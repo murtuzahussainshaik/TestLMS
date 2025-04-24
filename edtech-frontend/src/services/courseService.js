@@ -62,4 +62,9 @@ export const courseService = {
     );
     return response.data;
   },
+
+  toggleCoursePublish: async (courseId) => {
+    const response = await api.patch(`/course/c/${courseId}/publish`);
+    return response.data;
+  },
 };
