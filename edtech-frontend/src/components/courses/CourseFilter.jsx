@@ -366,4 +366,18 @@ const CourseFilter = ({ filters, onChange }) => {
   );
 };
 
+// Add utility classes for checkbox/radio if not already defined in index.css
+/*
+@layer components {
+  .input-checkbox {
+    @apply h-4 w-4 rounded border-secondary-300 text-primary-600 focus:ring-primary-500;
+    @apply dark:border-secondary-600 dark:bg-secondary-700 dark:checked:bg-primary-500 dark:focus:ring-primary-500 dark:focus:ring-offset-secondary-800;
+  }
+  .input-radio {
+    @apply h-4 w-4 border-secondary-300 text-primary-600 focus:ring-primary-500;
+    @apply dark:border-secondary-600 dark:bg-secondary-700 dark:checked:bg-primary-500 dark:focus:ring-primary-500 dark:focus:ring-offset-secondary-800;
+  }
+}
+*/
+
 export default CourseFilter;
