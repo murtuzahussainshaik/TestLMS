@@ -10,6 +10,7 @@ import {
   addLectureToCourse,
   getCourseLectures,
   toggleCoursePublish,
+  getMyEnrolledCourses,
 } from "../controllers/course.controller.js";
 import upload from "../utils/multer.js";
 
@@ -21,6 +22,9 @@ router.get("/search", searchCourses);
 
 // Protected routes
 router.use(isAuthenticated);
+
+// Student routes
+router.get("/enrolled", getMyEnrolledCourses);
 
 // Course management
 router

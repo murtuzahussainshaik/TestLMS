@@ -392,3 +392,28 @@ export const toggleCoursePublish = catchAsync(async (req, res) => {
     data: course,
   });
 });
+
+/**
+ * Get courses enrolled by the current user
+ * @route GET /api/v1/courses/enrolled
+ */
+export const getMyEnrolledCourses = catchAsync(async (req, res) => {
+  const user = await User.findById(req.id).populate({
+    path: "enrolledCourses",
+    select: "title subtitle description category level price thumbnail instructor totalDuration",
+    populate: {
+      path: "instructor",
+      select: "name avatar",
+    },
+  });
+
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  res.status(200).json({
+    success: true,
+    count: user.enrolledCourses.length,
+    data: user.enrolledCourses,
+  });
+});

@@ -150,8 +150,8 @@ export const getCoursePurchaseStatus = catchAsync(async (req, res) => {
 
   // Find course with populated data
   const course = await Course.findById(courseId)
-    .populate("creator", "name avatar")
-    .populate("lectures", "lectureTitle videoUrl duration");
+    .populate("instructor", "name avatar")
+    .populate("lectures", "title videoUrl duration");
 
   if (!course) {
     throw new AppError("Course not found", 404);
@@ -179,19 +179,46 @@ export const getCoursePurchaseStatus = catchAsync(async (req, res) => {
  */
 export const getPurchasedCourses = catchAsync(async (req, res) => {
   const purchases = await CoursePurchase.find({
-    userId: req.id,
+    user: req.id,
     status: "completed",
   }).populate({
-    path: "courseId",
-    select: "courseTitle courseThumbnail courseDescription category",
+    path: "course",
+    select: "title thumbnail description category",
     populate: {
-      path: "creator",
+      path: "instructor",
       select: "name avatar",
     },
   });
 
   res.status(200).json({
     success: true,
-    data: purchases.map((purchase) => purchase.courseId),
+    data: purchases.map((purchase) => purchase.course),
+  });
+});
+
+/**
+ * Get user's payment history
+ * @route GET /api/v1/purchase/history
+ */
+export const getPaymentHistory = catchAsync(async (req, res) => {
+  // Find all completed and refunded purchases for the user
+  const purchases = await CoursePurchase.find({
+    user: req.id,
+    status: { $in: ['completed', 'refunded'] } 
+  })
+  .sort({ createdAt: -1 })
+  .populate({
+    path: 'course',
+    select: 'title thumbnail',
+    populate: {
+      path: 'instructor',
+      select: 'name'
+    }
+  });
+
+  res.status(200).json({
+    success: true,
+    count: purchases.length,
+    data: purchases
   });
 });

@@ -4,6 +4,7 @@ import {
   getPurchasedCourses,
   handleStripeWebhook,
   initiateStripeCheckout,
+  getPaymentHistory,
 } from "../controllers/coursePurchase.controller.js";
 import { isAuthenticated } from "../middleware/auth.middleware.js";
 
@@ -20,5 +21,6 @@ router
   .get(isAuthenticated, getCoursePurchaseStatus);
 
 router.route("/").get(isAuthenticated, getPurchasedCourses);
+router.route("/history").get(isAuthenticated, getPaymentHistory);
 
 export default router;
