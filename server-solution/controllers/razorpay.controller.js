@@ -2,6 +2,7 @@ import Razorpay from "razorpay";
 import crypto from "crypto";
 import { Course } from "../models/course.model.js";
 import { CoursePurchase } from "../models/coursePurchase.model.js";
+import { User } from "../models/user.model.js";
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -80,7 +81,8 @@ export const verifyPayment = async (req, res) => {
     // Update purchase record
     const purchase = await CoursePurchase.findOne({
       paymentId: razorpay_order_id,
-    });
+    }).populate('course').populate('user');
+    
     if (!purchase) {
       return res.status(404).json({ message: "Purchase record not found" });
     }
@@ -88,10 +90,22 @@ export const verifyPayment = async (req, res) => {
     purchase.status = "completed";
     await purchase.save();
 
+    // Enroll user in the course
+    await User.findByIdAndUpdate(
+      purchase.user._id,
+      { $addToSet: { enrolledCourses: { course: purchase.course._id } } }
+    );
+
+    // Add user to course's enrolled students
+    await Course.findByIdAndUpdate(
+      purchase.course._id,
+      { $addToSet: { enrolledStudents: purchase.user._id } }
+    );
+
     res.status(200).json({
       success: true,
-      message: "Payment verified successfully",
-      courseId: purchase.course,
+      message: "Payment verified successfully and course enrollment completed",
+      courseId: purchase.course._id,
     });
   } catch (error) {
     console.error("Error verifying payment:", error);

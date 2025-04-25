@@ -222,3 +222,71 @@ export const getPaymentHistory = catchAsync(async (req, res) => {
     data: purchases
   });
 });
+
+/**
+ * Direct enrollment for testing purposes
+ * @route POST /api/v1/purchase/direct-enroll
+ */
+export const directEnroll = catchAsync(async (req, res) => {
+  const { courseId } = req.body;
+  const userId = req.id;
+
+  // Check if course exists
+  const course = await Course.findById(courseId);
+  if (!course) {
+    throw new AppError("Course not found", 404);
+  }
+
+  // Check if user is already enrolled
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  // Check if user is already enrolled
+  const isAlreadyEnrolled = user.enrolledCourses.some(
+    enrollment => enrollment.course.toString() === courseId
+  );
+
+  if (isAlreadyEnrolled) {
+    return res.status(200).json({
+      success: true,
+      message: "You are already enrolled in this course"
+    });
+  }
+
+  // Enroll user in course
+  await User.findByIdAndUpdate(
+    userId,
+    {
+      $addToSet: {
+        enrolledCourses: {
+          course: courseId,
+          enrolledAt: new Date()
+        }
+      }
+    }
+  );
+
+  // Add user to course's enrolled students
+  await Course.findByIdAndUpdate(
+    courseId,
+    { $addToSet: { enrolledStudents: userId } }
+  );
+
+  // Create a completed purchase record
+  await CoursePurchase.create({
+    course: courseId,
+    user: userId,
+    amount: course.price,
+    status: "completed",
+    paymentMethod: "test",
+    paymentId: `test_${Date.now()}`
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Successfully enrolled in the course",
+    courseId
+  });
+});

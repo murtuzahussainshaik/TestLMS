@@ -5,6 +5,7 @@ import {
   handleStripeWebhook,
   initiateStripeCheckout,
   getPaymentHistory,
+  directEnroll,
 } from "../controllers/coursePurchase.controller.js";
 import { isAuthenticated } from "../middleware/auth.middleware.js";
 
@@ -22,5 +23,8 @@ router
 
 router.route("/").get(isAuthenticated, getPurchasedCourses);
 router.route("/history").get(isAuthenticated, getPaymentHistory);
+
+// Testing route for direct enrollment
+router.route("/direct-enroll").post(isAuthenticated, directEnroll);
 
 export default router;
