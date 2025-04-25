@@ -18,18 +18,18 @@ const CourseCard = ({ course }) => {
   const getLevelColor = (level) => {
     switch (level) {
       case "beginner":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200";
       case "intermediate":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200";
       case "advanced":
-        return "bg-purple-100 text-purple-800";
+        return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200";
       default:
-        return "bg-secondary-100 text-secondary-800";
+        return "bg-secondary-100 text-secondary-800 dark:bg-secondary-700 dark:text-secondary-200";
     }
   };
 
   return (
-    <div className="course-card bg-white rounded-lg shadow-sm overflow-hidden border border-secondary-200">
+    <div className="course-card bg-white dark:bg-secondary-800 rounded-lg shadow-sm overflow-hidden border border-secondary-200 dark:border-secondary-700">
       {/* Course thumbnail */}
       <div className="relative h-40 overflow-hidden">
         <img
@@ -62,18 +62,18 @@ const CourseCard = ({ course }) => {
         </div>
 
         <Link to={`/courses/${course._id}`}>
-          <h3 className="text-lg font-semibold text-secondary-900 mb-1 line-clamp-2 hover:text-primary-600 transition">
+          <h3 className="text-lg font-semibold text-secondary-900 dark:text-white mb-1 line-clamp-2 hover:text-primary-600 transition">
             {course.title}
           </h3>
         </Link>
 
         {course.subtitle && (
-          <p className="text-sm text-secondary-500 mb-3 line-clamp-2">
+          <p className="text-sm text-secondary-500 dark:text-secondary-300 mb-3 line-clamp-2">
             {course.subtitle}
           </p>
         )}
 
-        <div className="flex items-center text-xs text-secondary-500 mb-3">
+        <div className="flex items-center text-xs text-secondary-500 dark:text-secondary-300 mb-3">
           <div className="flex items-center mr-3">
             <ClockIcon className="h-3 w-3 mr-1" />
             <span>
@@ -97,17 +97,17 @@ const CourseCard = ({ course }) => {
                 className="h-6 w-6 rounded-full mr-2 object-cover"
               />
             ) : (
-              <div className="h-6 w-6 rounded-full bg-primary-100 flex items-center justify-center mr-2">
-                <span className="text-primary-800 font-medium text-xs">
+              <div className="h-6 w-6 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-2">
+                <span className="text-primary-800 dark:text-primary-200 font-medium text-xs">
                   {course.instructor?.name?.charAt(0).toUpperCase() || "I"}
                 </span>
               </div>
             )}
-            <span className="text-xs text-secondary-700 truncate">
+            <span className="text-xs text-secondary-700 dark:text-secondary-300 truncate">
               {course.instructor?.name || "Instructor"}
             </span>
           </div>
-          <div className="text-primary-700 font-bold">
+          <div className="text-primary-700 dark:text-primary-400 font-bold">
             {formatPrice(course.price)}
           </div>
         </div>

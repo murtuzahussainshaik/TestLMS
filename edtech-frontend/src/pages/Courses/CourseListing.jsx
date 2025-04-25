@@ -72,17 +72,17 @@ const CourseListing = () => {
   }, [error]);
 
   return (
-    <div className="bg-secondary-50 min-h-screen py-8">
+    <div className="bg-secondary-50 dark:bg-secondary-950 min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-secondary-900 mb-4 md:mb-0">
+          <h1 className="text-3xl font-bold text-secondary-900 dark:text-secondary-100 mb-4 md:mb-0">
             Explore Courses
           </h1>
 
           {/* Search bar */}
           <div className="w-full md:w-1/3 relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <MagnifyingGlassIcon className="h-5 w-5 text-secondary-400" />
+              <MagnifyingGlassIcon className="h-5 w-5 text-secondary-400 dark:text-secondary-500" />
             </div>
             <input
               type="text"
@@ -114,11 +114,11 @@ const CourseListing = () => {
                 ))}
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow-sm p-8 text-center">
-                <h3 className="text-lg font-medium text-secondary-900 mb-2">
+              <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm p-8 text-center">
+                <h3 className="text-lg font-medium text-secondary-900 dark:text-secondary-100 mb-2">
                   No courses found
                 </h3>
-                <p className="text-secondary-500">
+                <p className="text-secondary-500 dark:text-secondary-400">
                   Try adjusting your search or filter criteria
                 </p>
               </div>

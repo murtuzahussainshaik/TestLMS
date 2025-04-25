@@ -23,4 +23,9 @@ export const paymentService = {
     );
     return response.data;
   },
+
+  getPaymentHistory: async () => {
+    const response = await api.get("/purchase/history");
+    return response.data;
+  },
 };

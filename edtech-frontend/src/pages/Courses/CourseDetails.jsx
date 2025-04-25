@@ -95,11 +95,11 @@ const CourseDetails = () => {
   if (error || !data?.data) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white rounded-lg shadow-sm p-8 text-center">
-          <h3 className="text-lg font-medium text-secondary-900 mb-2">
+        <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm p-8 text-center">
+          <h3 className="text-lg font-medium text-secondary-900 dark:text-secondary-100 mb-2">
             Course not found
           </h3>
-          <p className="text-secondary-500 mb-4">
+          <p className="text-secondary-500 dark:text-secondary-400 mb-4">
             The course you're looking for doesn't exist or has been removed.
           </p>
           <Link
@@ -116,9 +116,9 @@ const CourseDetails = () => {
   const course = data.data;
 
   return (
-    <div className="bg-secondary-50 min-h-screen">
+    <div className="bg-secondary-50 dark:bg-secondary-950 min-h-screen">
       {/* Hero section */}
-      <div className="bg-secondary-900 text-white py-12">
+      <div className="bg-secondary-900 dark:bg-secondary-950 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Course info */}
@@ -273,11 +273,11 @@ const CourseDetails = () => {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Course details */}
           <div className="md:w-2/3">
-            <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-              <h2 className="text-2xl font-bold text-secondary-900 mb-4">
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm p-6 mb-8">
+              <h2 className="text-2xl font-bold text-secondary-900 dark:text-secondary-100 mb-4">
                 About This Course
               </h2>
-              <div className="prose prose-sm max-w-none text-secondary-500">
+              <div className="prose prose-sm max-w-none text-secondary-500 dark:text-secondary-300">
                 {course.description ? (
                   <p>{course.description}</p>
                 ) : (
@@ -287,8 +287,8 @@ const CourseDetails = () => {
             </div>
 
             {/* Course curriculum */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-2xl font-bold text-secondary-900 mb-4">
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm p-6">
+              <h2 className="text-2xl font-bold text-secondary-900 dark:text-secondary-100 mb-4">
                 Course Curriculum
               </h2>
               <LectureList
@@ -301,8 +301,8 @@ const CourseDetails = () => {
 
           {/* Instructor profile */}
           <div className="md:w-1/3">
-            <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-              <h2 className="text-xl font-bold text-secondary-900 mb-4">
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm p-6 mb-8">
+              <h2 className="text-xl font-bold text-secondary-900 dark:text-secondary-100 mb-4">
                 Instructor
               </h2>
               <div className="flex items-center mb-4">
@@ -320,15 +320,15 @@ const CourseDetails = () => {
                   </div>
                 )}
                 <div className="ml-3">
-                  <h3 className="text-lg font-medium text-secondary-900">
+                  <h3 className="text-lg font-medium text-secondary-900 dark:text-secondary-100">
                     {course.instructor?.name || "Instructor"}
                   </h3>
-                  <p className="text-sm text-secondary-500">
+                  <p className="text-sm text-secondary-500 dark:text-secondary-400">
                     {course.instructor?.role || "Instructor"}
                   </p>
                 </div>
               </div>
-              <div className="prose prose-sm max-w-none text-secondary-500">
+              <div className="prose prose-sm max-w-none text-secondary-500 dark:text-secondary-300">
                 {course.instructor?.bio ? (
                   <p>{course.instructor.bio}</p>
                 ) : (

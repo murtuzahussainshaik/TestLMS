@@ -8,6 +8,7 @@ import { courseService } from "../../services/courseService";
 import Loader from "../../components/common/Loader";
 import ImageUploader from "../../components/common/ImageUploader";
 import { PencilIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 const CATEGORIES = [
   "Web Development",
@@ -161,12 +162,12 @@ const EditCourse = () => {
   return (
     <div className="py-6">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white shadow rounded-lg">
-          <div className="px-6 py-4 border-b border-secondary-200">
-            <h2 className="text-xl font-semibold text-secondary-900">
+        <div className="bg-white dark:bg-secondary-800 !important shadow rounded-lg">
+          <div className="px-6 py-4 border-b border-secondary-200 dark:border-secondary-700">
+            <h2 className="text-xl font-semibold text-secondary-900 dark:text-white !important">
               Edit Course
             </h2>
-            <p className="mt-1 text-sm text-secondary-500">
+            <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400">
               Update your course details
             </p>
           </div>
@@ -179,7 +180,7 @@ const EditCourse = () => {
             <div>
               <label
                 htmlFor="title"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Course Title <span className="text-red-500">*</span>
               </label>
@@ -187,10 +188,10 @@ const EditCourse = () => {
                 id="title"
                 type="text"
                 {...register("title", { required: "Title is required" })}
-                className={`mt-1 input ${errors.title ? "border-red-300" : ""}`}
+                className={`mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white ${errors.title ? "border-red-300 dark:border-red-500" : ""}`}
               />
               {errors.title && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                   {errors.title.message}
                 </p>
               )}
@@ -200,7 +201,7 @@ const EditCourse = () => {
             <div>
               <label
                 htmlFor="subtitle"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Course Subtitle
               </label>
@@ -208,7 +209,7 @@ const EditCourse = () => {
                 id="subtitle"
                 type="text"
                 {...register("subtitle")}
-                className="mt-1 input"
+                className="mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white"
               />
             </div>
 
@@ -216,7 +217,7 @@ const EditCourse = () => {
             <div>
               <label
                 htmlFor="description"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Course Description <span className="text-red-500">*</span>
               </label>
@@ -226,12 +227,12 @@ const EditCourse = () => {
                 {...register("description", {
                   required: "Description is required",
                 })}
-                className={`mt-1 input ${
-                  errors.description ? "border-red-300" : ""
+                className={`mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white ${
+                  errors.description ? "border-red-300 dark:border-red-500" : ""
                 }`}
               />
               {errors.description && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                   {errors.description.message}
                 </p>
               )}
@@ -241,15 +242,15 @@ const EditCourse = () => {
             <div>
               <label
                 htmlFor="category"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Category <span className="text-red-500">*</span>
               </label>
               <select
                 id="category"
                 {...register("category", { required: "Category is required" })}
-                className={`mt-1 input ${
-                  errors.category ? "border-red-300" : ""
+                className={`mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white ${
+                  errors.category ? "border-red-300 dark:border-red-500" : ""
                 }`}
               >
                 <option value="">Select a category</option>
@@ -260,7 +261,7 @@ const EditCourse = () => {
                 ))}
               </select>
               {errors.category && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                   {errors.category.message}
                 </p>
               )}
@@ -270,14 +271,16 @@ const EditCourse = () => {
             <div>
               <label
                 htmlFor="level"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Level <span className="text-red-500">*</span>
               </label>
               <select
                 id="level"
                 {...register("level", { required: "Level is required" })}
-                className={`mt-1 input ${errors.level ? "border-red-300" : ""}`}
+                className={`mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white ${
+                  errors.level ? "border-red-300 dark:border-red-500" : ""
+                }`}
               >
                 {LEVELS.map((level) => (
                   <option key={level.value} value={level.value}>
@@ -286,7 +289,7 @@ const EditCourse = () => {
                 ))}
               </select>
               {errors.level && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                   {errors.level.message}
                 </p>
               )}
@@ -296,37 +299,41 @@ const EditCourse = () => {
             <div>
               <label
                 htmlFor="price"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
-                Price (INR) <span className="text-red-500">*</span>
+                Price (₹) <span className="text-red-500">*</span>
               </label>
               <input
                 id="price"
                 type="number"
+                min="0"
+                step="0.01"
                 {...register("price", {
                   required: "Price is required",
-                  min: { value: 0, message: "Price must be positive" },
+                  min: { value: 0, message: "Price cannot be negative" },
                 })}
-                className={`mt-1 input ${errors.price ? "border-red-300" : ""}`}
+                className={`mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white ${
+                  errors.price ? "border-red-300 dark:border-red-500" : ""
+                }`}
               />
               {errors.price && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                   {errors.price.message}
                 </p>
               )}
             </div>
 
-            {/* Published Status */}
-            <div className="flex items-center">
+            {/* Publish status */}
+            <div className="flex items-center space-x-2">
               <input
                 id="isPublished"
                 type="checkbox"
                 {...register("isPublished")}
-                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-secondary-300 rounded"
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-secondary-300 rounded dark:border-secondary-600 dark:bg-secondary-700"
               />
               <label
                 htmlFor="isPublished"
-                className="ml-2 block text-sm text-secondary-900"
+                className="text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Publish this course (make it visible to students)
               </label>
@@ -334,7 +341,7 @@ const EditCourse = () => {
 
             {/* Thumbnail */}
             <div>
-              <label className="block text-sm font-medium text-secondary-700">
+              <label className="block text-sm font-medium text-secondary-700 dark:text-secondary-300">
                 Course Thumbnail
               </label>
 
@@ -346,58 +353,47 @@ const EditCourse = () => {
                     className="object-cover h-40 w-full"
                   />
                   <div className="absolute top-2 right-2 flex space-x-2">
-                    {thumbnailFile && (
-                      <button
-                        type="button"
-                        onClick={revertToOriginalThumbnail}
-                        className="p-1 bg-secondary-800 rounded-full text-white"
-                        title="Revert to original"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </button>
-                    )}
                     <button
                       type="button"
-                      onClick={() => fileInputRef.current.click()}
+                      onClick={revertToOriginalThumbnail}
                       className="p-1 bg-secondary-800 rounded-full text-white"
-                      title="Change thumbnail"
+                      disabled={data?.data?.thumbnail === thumbnailPreview && !thumbnailFile}
                     >
-                      <PencilIcon className="h-5 w-5" />
+                      <ArrowPathIcon className="h-5 w-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={removeThumbnail}
+                      className="p-1 bg-secondary-800 rounded-full text-white"
+                    >
+                      <XCircleIcon className="h-5 w-5" />
                     </button>
                   </div>
                 </div>
               ) : (
                 <ImageUploader onFileSelect={handleThumbnailUpload} />
               )}
+              <p className="mt-1 text-xs text-secondary-500 dark:text-secondary-400">
+                Leave unchanged to keep the current thumbnail
+              </p>
             </div>
 
             {/* Submit buttons */}
-            <div className="flex justify-end space-x-3 border-t border-secondary-200 pt-6">
+            <div className="flex justify-end space-x-3 border-t border-secondary-200 dark:border-secondary-700 pt-6">
               <button
                 type="button"
                 onClick={() => navigate("/instructor/courses")}
-                className="btn btn-secondary"
+                className="px-4 py-2 border border-secondary-300 dark:border-secondary-600 rounded-md text-sm font-medium text-secondary-700 dark:text-secondary-300 bg-white dark:bg-secondary-700 hover:bg-secondary-50 dark:hover:bg-secondary-600"
                 disabled={isSubmitting}
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Updating..." : "Update Course"}
+                {isSubmitting ? "Saving..." : "Save Changes"}
               </button>
             </div>
           </form>

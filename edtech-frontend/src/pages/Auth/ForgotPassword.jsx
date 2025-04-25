@@ -30,19 +30,19 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-secondary-50">
+    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-secondary-50 dark:bg-secondary-950">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <KeyIcon className="h-12 w-12 text-primary-600" />
         </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-secondary-900">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-secondary-900 dark:text-secondary-100">
           Reset your password
         </h2>
-        <p className="mt-2 text-center text-sm text-secondary-600">
+        <p className="mt-2 text-center text-sm text-secondary-600 dark:text-secondary-400">
           Or{" "}
           <Link
             to="/login"
-            className="font-medium text-primary-600 hover:text-primary-500"
+            className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400"
           >
             sign in to your account
           </Link>
@@ -50,13 +50,13 @@ const ForgotPassword = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-white dark:bg-secondary-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
           {!isSent ? (
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-secondary-700"
+                  className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
                 >
                   Email address
                 </label>
@@ -77,7 +77,7 @@ const ForgotPassword = () => {
               <div>
                 <button
                   type="submit"
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-offset-secondary-800"
                   disabled={isLoading}
                 >
                   {isLoading ? "Sending..." : "Send reset instructions"}
@@ -101,16 +101,16 @@ const ForgotPassword = () => {
                   />
                 </svg>
               </div>
-              <h3 className="mt-2 text-lg font-medium text-secondary-900">
+              <h3 className="mt-2 text-lg font-medium text-secondary-900 dark:text-secondary-100">
                 Check your email
               </h3>
-              <p className="mt-1 text-sm text-secondary-500">
+              <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400">
                 We've sent password reset instructions to {email}
               </p>
               <div className="mt-6">
                 <Link
                   to="/login"
-                  className="text-sm font-medium text-primary-600 hover:text-primary-500"
+                  className="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400"
                 >
                   Back to sign in
                 </Link>

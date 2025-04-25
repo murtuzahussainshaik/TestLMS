@@ -64,19 +64,19 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-secondary-50">
+    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-secondary-50 dark:bg-secondary-950">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <UserPlusIcon className="h-12 w-12 text-primary-600" />
         </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-secondary-900">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-secondary-900 dark:text-secondary-100">
           Create a new account
         </h2>
-        <p className="mt-2 text-center text-sm text-secondary-600">
+        <p className="mt-2 text-center text-sm text-secondary-600 dark:text-secondary-400">
           Or{" "}
           <Link
             to="/login"
-            className="font-medium text-primary-600 hover:text-primary-500"
+            className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400"
           >
             sign in to your existing account
           </Link>
@@ -84,12 +84,12 @@ const Register = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-white dark:bg-secondary-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Full Name
               </label>
@@ -110,7 +110,7 @@ const Register = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Email address
               </label>
@@ -131,7 +131,7 @@ const Register = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Password
               </label>
@@ -147,7 +147,7 @@ const Register = () => {
                   onChange={handleChange}
                 />
               </div>
-              <p className="mt-1 text-xs text-secondary-500">
+              <p className="mt-1 text-xs text-secondary-500 dark:text-secondary-400">
                 Password must be at least 8 characters
               </p>
             </div>
@@ -155,7 +155,7 @@ const Register = () => {
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Confirm Password
               </label>
@@ -175,7 +175,7 @@ const Register = () => {
             <div>
               <label
                 htmlFor="role"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 I want to
               </label>
@@ -196,7 +196,7 @@ const Register = () => {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-offset-secondary-800"
                 disabled={isLoading}
               >
                 {isLoading ? "Creating account..." : "Create account"}
@@ -207,26 +207,26 @@ const Register = () => {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-secondary-300" />
+                <div className="w-full border-t border-secondary-300 dark:border-secondary-600" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-secondary-500">
+                <span className="px-2 bg-white dark:bg-secondary-800 text-secondary-500 dark:text-secondary-400">
                   By signing up, you agree to our
                 </span>
               </div>
             </div>
 
-            <div className="mt-6 text-center text-xs text-secondary-500">
+            <div className="mt-6 text-center text-xs text-secondary-500 dark:text-secondary-400">
               <Link
                 to="/terms"
-                className="font-medium text-primary-600 hover:text-primary-500"
+                className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400"
               >
                 Terms of Service
               </Link>{" "}
               and{" "}
               <Link
                 to="/privacy"
-                className="font-medium text-primary-600 hover:text-primary-500"
+                className="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400"
               >
                 Privacy Policy
               </Link>

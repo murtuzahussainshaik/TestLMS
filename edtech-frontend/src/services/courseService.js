@@ -26,6 +26,11 @@ export const courseService = {
     return response.data;
   },
 
+  getMyEnrolledCourses: async () => {
+    const response = await api.get("/course/enrolled");
+    return response.data;
+  },
+
   // Instructor facing endpoints
   createCourse: async (formData) => {
     const response = await api.post("/course", formData, {

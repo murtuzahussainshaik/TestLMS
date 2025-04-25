@@ -1,7 +1,6 @@
-// src/components/dashboard/DashboardHeader.jsx
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import ThemeToggle from "../common/ThemeToggle";
+import ThemeToggle from "./ThemeToggle";
 import { UserCircleIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const DashboardHeader = ({ toggleSidebar, isSidebarOpen, title = "Dashboard" }) => {
@@ -11,7 +10,7 @@ const DashboardHeader = ({ toggleSidebar, isSidebarOpen, title = "Dashboard" }) 
   const toggleProfile = () => setIsProfileOpen(!isProfileOpen);
 
   return (
-    <div className="sticky top-0 z-10 flex items-center justify-between h-16 px-4 bg-white dark:bg-secondary-800 !important border-b border-secondary-200 dark:border-secondary-700 shadow-sm dark:shadow-md">
+    <div className="sticky top-0 z-10 flex items-center justify-between h-16 px-4 bg-white dark:bg-secondary-800 border-b border-secondary-200 dark:border-secondary-700 shadow-sm dark:shadow-md">
       <div className="flex items-center">
         <button
           onClick={toggleSidebar}
@@ -23,7 +22,7 @@ const DashboardHeader = ({ toggleSidebar, isSidebarOpen, title = "Dashboard" }) 
             <Bars3Icon className="h-6 w-6 text-secondary-500 dark:text-secondary-400" />
           )}
         </button>
-        <h1 className="text-xl font-semibold text-secondary-900 dark:text-white !important">{title}</h1>
+        <h1 className="text-xl font-semibold text-secondary-900 dark:text-secondary-100">{title}</h1>
       </div>
 
       <div className="flex items-center">
@@ -58,9 +57,9 @@ const DashboardHeader = ({ toggleSidebar, isSidebarOpen, title = "Dashboard" }) 
           </div>
 
           {isProfileOpen && (
-            <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-secondary-800 !important ring-1 ring-black ring-opacity-5 dark:ring-secondary-700 py-1 z-10">
-              <div className="px-4 py-2 border-b dark:border-secondary-700">
-                <p className="text-sm font-medium text-secondary-900 dark:text-white !important truncate">
+            <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-secondary-700 ring-1 ring-black ring-opacity-5 dark:ring-secondary-600 py-1 z-10">
+              <div className="px-4 py-2 border-b dark:border-secondary-600">
+                <p className="text-sm font-medium text-secondary-900 dark:text-secondary-100 truncate">
                   {user?.name}
                 </p>
                 <p className="text-xs text-secondary-500 dark:text-secondary-400 truncate">
@@ -75,4 +74,4 @@ const DashboardHeader = ({ toggleSidebar, isSidebarOpen, title = "Dashboard" }) 
   );
 };
 
-export default DashboardHeader;
+export default DashboardHeader; 

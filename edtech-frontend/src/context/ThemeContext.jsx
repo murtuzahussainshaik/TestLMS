@@ -1,15 +1,42 @@
-import { createContext, useContext } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 
 // Create a simplified ThemeContext that always uses light mode
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  // Always set theme to light
-  const theme = 'light';
-  
-  // Dummy function that does nothing since we're not toggling themes
+  const [theme, setTheme] = useState(() => {
+    // Try local storage first
+    const storedTheme = localStorage.getItem('theme');
+    
+    // If there's a stored theme, use it
+    if (storedTheme) {
+      return storedTheme;
+    }
+    
+    // Otherwise check system preference
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    
+    // Default to light
+    return 'light';
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
   const toggleTheme = () => {
-    console.log('Dark mode has been disabled.');
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
   };
 
   return (

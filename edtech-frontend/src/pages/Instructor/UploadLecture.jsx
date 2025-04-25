@@ -144,19 +144,19 @@ const UploadLecture = () => {
     <div className="py-6">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-secondary-900">
+          <h1 className="text-2xl font-bold text-secondary-900 dark:text-white">
             Add Lectures to Your Course
           </h1>
-          <p className="mt-1 text-sm text-secondary-500">
+          <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400">
             Upload video lectures for your course
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Upload form */}
-          <div className="bg-white shadow rounded-lg overflow-hidden">
-            <div className="px-6 py-4 border-b border-secondary-200">
-              <h2 className="text-lg font-medium text-secondary-900">
+          <div className="bg-white dark:bg-secondary-800 !important shadow rounded-lg overflow-hidden">
+            <div className="px-6 py-4 border-b border-secondary-200 dark:border-secondary-700">
+              <h2 className="text-lg font-medium text-secondary-900 dark:text-white !important">
                 Upload New Lecture
               </h2>
             </div>
@@ -166,7 +166,7 @@ const UploadLecture = () => {
               <div>
                 <label
                   htmlFor="title"
-                  className="block text-sm font-medium text-secondary-700"
+                  className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
                 >
                   Lecture Title <span className="text-red-500">*</span>
                 </label>
@@ -174,12 +174,12 @@ const UploadLecture = () => {
                   id="title"
                   type="text"
                   {...register("title", { required: "Title is required" })}
-                  className={`mt-1 input ${
-                    errors.title ? "border-red-300" : ""
+                  className={`mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white ${
+                    errors.title ? "border-red-300 dark:border-red-500" : ""
                   }`}
                 />
                 {errors.title && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                     {errors.title.message}
                   </p>
                 )}
@@ -189,7 +189,7 @@ const UploadLecture = () => {
               <div>
                 <label
                   htmlFor="description"
-                  className="block text-sm font-medium text-secondary-700"
+                  className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
                 >
                   Lecture Description
                 </label>
@@ -197,21 +197,21 @@ const UploadLecture = () => {
                   id="description"
                   rows={3}
                   {...register("description")}
-                  className="mt-1 input"
+                  className="mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white"
                 />
               </div>
 
-              {/* Free preview option */}
+              {/* Preview toggle */}
               <div className="flex items-center">
                 <input
                   id="isPreview"
                   type="checkbox"
                   {...register("isPreview")}
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-secondary-300 rounded"
+                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-secondary-300 rounded dark:border-secondary-600 dark:bg-secondary-700"
                 />
                 <label
                   htmlFor="isPreview"
-                  className="ml-2 block text-sm text-secondary-900"
+                  className="ml-2 block text-sm text-secondary-700 dark:text-secondary-300"
                 >
                   Make this lecture available as a free preview
                 </label>
@@ -219,69 +219,75 @@ const UploadLecture = () => {
 
               {/* Video upload */}
               <div>
-                <label className="block text-sm font-medium text-secondary-700">
+                <label
+                  className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
+                >
                   Video <span className="text-red-500">*</span>
                 </label>
-
                 {videoPreview ? (
-                  <div className="mt-1 relative">
+                  <div className="mt-2 relative">
                     <video
                       src={videoPreview}
                       controls
-                      className="w-full h-48 object-cover rounded-md"
+                      className="w-full h-auto rounded border border-secondary-300 dark:border-secondary-600"
                     />
                     <button
                       type="button"
                       onClick={removeVideo}
-                      className="absolute top-2 right-2 p-1 bg-secondary-800 rounded-full text-white"
+                      className="absolute top-2 right-2 p-1 bg-red-100 dark:bg-red-900 rounded-full text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-800"
                     >
                       <TrashIcon className="h-5 w-5" />
                     </button>
                   </div>
                 ) : (
-                  <div className="mt-1 border-2 border-dashed border-secondary-300 rounded-md px-6 py-8 flex justify-center">
-                    <div className="text-center">
-                      <CloudArrowUpIcon className="mx-auto h-12 w-12 text-secondary-400" />
-                      <div className="mt-4">
+                  <div
+                    className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-secondary-300 dark:border-secondary-600 rounded-md cursor-pointer dark:bg-secondary-700"
+                    onClick={() => document.getElementById("video").click()}
+                  >
+                    <div className="space-y-1 text-center">
+                      <CloudArrowUpIcon className="mx-auto h-12 w-12 text-secondary-400 dark:text-secondary-500" />
+                      <div className="flex text-sm text-secondary-600 dark:text-secondary-400">
                         <label
-                          htmlFor="video-upload"
-                          className="cursor-pointer"
+                          htmlFor="video"
+                          className="relative cursor-pointer rounded-md font-medium text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500"
                         >
-                          <span className="mt-2 block text-sm font-medium text-primary-600">
-                            Upload a video file
-                          </span>
+                          <span>Upload a video file</span>
                           <input
-                            id="video-upload"
+                            id="video"
                             name="video"
                             type="file"
-                            accept="video/mp4,video/webm,video/ogg"
-                            onChange={handleVideoSelect}
+                            accept="video/*"
                             className="sr-only"
+                            onChange={handleVideoSelect}
                           />
                         </label>
-                        <p className="mt-1 text-xs text-secondary-500">
-                          MP4, WebM, Ogg up to 500MB
-                        </p>
+                        <p className="pl-1">or drag and drop</p>
                       </div>
+                      <p className="text-xs text-secondary-500 dark:text-secondary-400">
+                        MP4, WebM, Ogg up to 500MB
+                      </p>
                     </div>
                   </div>
                 )}
               </div>
 
               {/* Submit buttons */}
-              <div className="flex justify-end space-x-3 pt-4">
+              <div className="flex justify-end space-x-3">
                 <button
                   type="button"
-                  onClick={() => navigate(`/instructor/courses`)}
-                  className="btn btn-secondary"
-                  disabled={isSubmitting}
+                  className="px-4 py-2 border border-secondary-300 dark:border-secondary-600 rounded-md text-sm font-medium text-secondary-700 dark:text-secondary-300 bg-white dark:bg-secondary-700 hover:bg-secondary-50 dark:hover:bg-secondary-600"
+                  onClick={() => {
+                    reset();
+                    setVideoFile(null);
+                    setVideoPreview(null);
+                  }}
                 >
-                  Done
+                  Reset
                 </button>
                 <button
                   type="submit"
-                  className="btn btn-primary"
                   disabled={isSubmitting}
+                  className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
                 >
                   {isSubmitting ? "Uploading..." : "Upload Lecture"}
                 </button>
@@ -289,61 +295,85 @@ const UploadLecture = () => {
             </form>
           </div>
 
-          {/* Lectures list */}
-          <div className="bg-white shadow rounded-lg overflow-hidden">
-            <div className="px-6 py-4 border-b border-secondary-200">
-              <h2 className="text-lg font-medium text-secondary-900">
+          {/* Course lectures list */}
+          <div className="bg-white dark:bg-secondary-800 !important shadow rounded-lg overflow-hidden">
+            <div className="px-6 py-4 border-b border-secondary-200 dark:border-secondary-700">
+              <h2 className="text-lg font-medium text-secondary-900 dark:text-white !important">
                 Course Lectures
               </h2>
-              <p className="mt-1 text-sm text-secondary-500">
-                {lectures.length}{" "}
-                {lectures.length === 1 ? "lecture" : "lectures"} uploaded
-              </p>
+              {lectures.length > 0 && (
+                <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400">
+                  {lectures.length} {lectures.length === 1 ? "lecture" : "lectures"} uploaded
+                </p>
+              )}
             </div>
 
-            <div className="divide-y divide-secondary-200 max-h-[500px] overflow-y-auto">
+            <div className="px-6 py-4">
               {lectures.length > 0 ? (
-                lectures.map((lecture, index) => (
-                  <div key={lecture._id} className="p-4">
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0 mr-4">
-                        <div className="flex items-center justify-center h-10 w-10 rounded-full bg-primary-100 text-primary-600">
-                          {index + 1}
-                        </div>
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-sm font-medium text-secondary-900 truncate">
-                            {lecture.title}
-                          </h3>
-                          <span className="ml-2 flex-shrink-0 text-xs text-secondary-500">
-                            {formatDuration(lecture.duration || 0)}
+                <ul className="divide-y divide-secondary-200 dark:divide-secondary-700">
+                  {lectures.map((lecture, index) => (
+                    <li key={lecture._id} className="py-4">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex-shrink-0 h-10 w-10 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center">
+                          <span className="text-primary-600 dark:text-primary-400 font-semibold">
+                            {index + 1}
                           </span>
                         </div>
-                        {lecture.description && (
-                          <p className="mt-1 text-xs text-secondary-500 line-clamp-1">
-                            {lecture.description}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-secondary-900 dark:text-white truncate">
+                            {lecture.title}
                           </p>
-                        )}
-                        <div className="mt-1 flex items-center">
-                          {lecture.isPreview && (
-                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                              Free Preview
-                            </span>
+                          {lecture.description && (
+                            <p className="text-sm text-secondary-500 dark:text-secondary-400 truncate">
+                              {lecture.description}
+                            </p>
                           )}
+                          <div className="mt-1 flex items-center space-x-4">
+                            <div className="flex items-center text-xs text-secondary-500 dark:text-secondary-400">
+                              <PlayIcon className="h-4 w-4 mr-1" />
+                              {lecture.duration ? formatDuration(lecture.duration) : "N/A"}
+                            </div>
+                            {lecture.isPreview && (
+                              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
+                                Free Preview
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                ))
+                    </li>
+                  ))}
+                </ul>
               ) : (
-                <div className="p-6 text-center">
-                  <p className="text-secondary-500">
-                    No lectures added yet. Upload your first lecture to get
-                    started.
+                <div className="text-center py-8">
+                  <PlayIcon className="mx-auto h-12 w-12 text-secondary-400 dark:text-secondary-500" />
+                  <h3 className="mt-2 text-lg font-medium text-secondary-900 dark:text-white">
+                    No lectures yet
+                  </h3>
+                  <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400">
+                    Add your first lecture using the form on the left
                   </p>
                 </div>
               )}
+            </div>
+
+            <div className="px-6 py-4 border-t border-secondary-200 dark:border-secondary-700 bg-secondary-50 dark:bg-secondary-800">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-medium text-secondary-900 dark:text-white">
+                    Done adding lectures?
+                  </h3>
+                </div>
+                <div className="flex space-x-3">
+                  <button
+                    type="button"
+                    onClick={() => navigate(`/instructor/courses`)}
+                    className="inline-flex items-center px-4 py-2 border border-secondary-300 dark:border-secondary-600 rounded-md shadow-sm text-sm font-medium text-secondary-700 dark:text-secondary-300 bg-white dark:bg-secondary-700 hover:bg-secondary-50 dark:hover:bg-secondary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                  >
+                    Back to My Courses
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

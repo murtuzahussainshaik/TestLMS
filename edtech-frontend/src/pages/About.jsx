@@ -82,7 +82,7 @@ const About = () => {
       </div>
 
       {/* Our Story Section */}
-      <div className="bg-white py-16">
+      <div className="bg-white dark:bg-secondary-800 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
@@ -93,10 +93,10 @@ const About = () => {
               />
             </div>
             <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold text-secondary-900 mb-6">
+              <h2 className="text-3xl font-bold text-secondary-900 dark:text-secondary-100 mb-6">
                 Our Story
               </h2>
-              <div className="prose prose-lg text-secondary-600">
+              <div className="prose prose-lg text-secondary-600 dark:text-secondary-400 dark:prose-headings:text-secondary-200 prose-a:text-primary-600 dark:prose-a:text-primary-400">
                 <p>
                   Founded in 2020, EduTech was born out of a simple yet powerful
                   vision: to bridge the gap between quality education and
@@ -126,27 +126,27 @@ const About = () => {
       </div>
 
       {/* Our Values Section */}
-      <div className="bg-secondary-50 py-16">
+      <div className="bg-secondary-50 dark:bg-secondary-900 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-secondary-900">
+            <h2 className="text-3xl font-bold text-secondary-900 dark:text-secondary-100">
               Our Values
             </h2>
-            <p className="mt-4 text-lg text-secondary-600 max-w-2xl mx-auto">
+            <p className="mt-4 text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
               Our values form the foundation of everything we do at EduTech
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-sm p-6">
-                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-100 mb-4">
+              <div key={index} className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm p-6">
+                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-100 dark:bg-primary-900 mb-4">
                   {value.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-secondary-900 mb-2">
+                <h3 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100 mb-2">
                   {value.title}
                 </h3>
-                <p className="text-secondary-600">{value.description}</p>
+                <p className="text-secondary-600 dark:text-secondary-400">{value.description}</p>
               </div>
             ))}
           </div>
@@ -154,13 +154,13 @@ const About = () => {
       </div>
 
       {/* Team Section */}
-      <div className="bg-white py-16">
+      <div className="bg-white dark:bg-secondary-800 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-secondary-900">
+            <h2 className="text-3xl font-bold text-secondary-900 dark:text-secondary-100">
               Meet Our Team
             </h2>
-            <p className="mt-4 text-lg text-secondary-600 max-w-2xl mx-auto">
+            <p className="mt-4 text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
               The passionate individuals behind EduTech who work tirelessly to
               make learning accessible and enjoyable
             </p>
@@ -170,7 +170,7 @@ const About = () => {
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-sm overflow-hidden"
+                className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm overflow-hidden"
               >
                 <img
                   className="w-full h-64 object-cover"
@@ -178,11 +178,11 @@ const About = () => {
                   alt={member.name}
                 />
                 <div className="p-6">
-                  <h3 className="text-lg font-semibold text-secondary-900">
+                  <h3 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100">
                     {member.name}
                   </h3>
-                  <p className="text-primary-600 mb-3">{member.role}</p>
-                  <p className="text-secondary-600 text-sm">{member.bio}</p>
+                  <p className="text-primary-600 dark:text-primary-500 mb-3">{member.role}</p>
+                  <p className="text-secondary-600 dark:text-secondary-400 text-sm">{member.bio}</p>
                 </div>
               </div>
             ))}

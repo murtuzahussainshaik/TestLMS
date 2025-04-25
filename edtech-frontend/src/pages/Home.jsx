@@ -130,26 +130,26 @@ const Home = () => {
       </div>
 
       {/* Stats Section */}
-      <div className="bg-white py-12">
+      <div className="bg-white dark:bg-secondary-800 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
               <p className="text-4xl font-bold text-primary-600">100+</p>
-              <p className="mt-2 text-lg text-secondary-500">Courses</p>
+              <p className="mt-2 text-lg text-secondary-500 dark:text-secondary-400">Courses</p>
             </div>
             <div>
               <p className="text-4xl font-bold text-primary-600">50+</p>
-              <p className="mt-2 text-lg text-secondary-500">
+              <p className="mt-2 text-lg text-secondary-500 dark:text-secondary-400">
                 Expert Instructors
               </p>
             </div>
             <div>
               <p className="text-4xl font-bold text-primary-600">10,000+</p>
-              <p className="mt-2 text-lg text-secondary-500">Students</p>
+              <p className="mt-2 text-lg text-secondary-500 dark:text-secondary-400">Students</p>
             </div>
             <div>
               <p className="text-4xl font-bold text-primary-600">95%</p>
-              <p className="mt-2 text-lg text-secondary-500">
+              <p className="mt-2 text-lg text-secondary-500 dark:text-secondary-400">
                 Satisfaction Rate
               </p>
             </div>
@@ -158,13 +158,13 @@ const Home = () => {
       </div>
 
       {/* Features Section */}
-      <div className="bg-secondary-50 py-16">
+      <div className="bg-secondary-50 dark:bg-secondary-900 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-secondary-900">
+            <h2 className="text-3xl font-bold text-secondary-900 dark:text-secondary-100">
               Why Choose Us
             </h2>
-            <p className="mt-4 text-lg text-secondary-600 max-w-2xl mx-auto">
+            <p className="mt-4 text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
               Our platform offers a unique learning experience designed to help
               you succeed
             </p>
@@ -172,14 +172,14 @@ const Home = () => {
 
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-sm p-6">
-                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-100 mb-4">
+              <div key={index} className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm p-6">
+                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-100 dark:bg-primary-900 mb-4">
                   {feature.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-secondary-900 mb-2">
+                <h3 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100 mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-secondary-600">{feature.description}</p>
+                <p className="text-secondary-600 dark:text-secondary-400">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -187,13 +187,13 @@ const Home = () => {
       </div>
 
       {/* Featured Courses Section */}
-      <div className="bg-white py-16">
+      <div className="bg-white dark:bg-secondary-800 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-secondary-900">
+            <h2 className="text-3xl font-bold text-secondary-900 dark:text-secondary-100">
               Featured Courses
             </h2>
-            <p className="mt-4 text-lg text-secondary-600 max-w-2xl mx-auto">
+            <p className="mt-4 text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
               Explore our most popular courses hand-picked by our team
             </p>
           </div>
@@ -208,7 +208,7 @@ const Home = () => {
             </div>
           ) : (
             <div className="text-center py-8">
-              <p className="text-secondary-500">
+              <p className="text-secondary-500 dark:text-secondary-400">
                 No courses available at the moment.
               </p>
             </div>
@@ -226,13 +226,13 @@ const Home = () => {
       </div>
 
       {/* Testimonials Section */}
-      <div className="bg-secondary-50 py-16">
+      <div className="bg-secondary-50 dark:bg-secondary-900 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-secondary-900">
+            <h2 className="text-3xl font-bold text-secondary-900 dark:text-secondary-100">
               What Our Students Say
             </h2>
-            <p className="mt-4 text-lg text-secondary-600 max-w-2xl mx-auto">
+            <p className="mt-4 text-lg text-secondary-600 dark:text-secondary-400 max-w-2xl mx-auto">
               Don't just take our word for it. Hear what our students have to
               say about their learning journey.
             </p>
@@ -242,7 +242,7 @@ const Home = () => {
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="bg-white rounded-lg shadow-sm p-6"
+                className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm p-6"
               >
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -251,12 +251,12 @@ const Home = () => {
                       className={`h-5 w-5 ${
                         i < testimonial.rating
                           ? "text-yellow-400"
-                          : "text-secondary-300"
+                          : "text-secondary-300 dark:text-secondary-600"
                       }`}
                     />
                   ))}
                 </div>
-                <p className="text-secondary-600 mb-6">
+                <p className="text-secondary-600 dark:text-secondary-400 mb-6">
                   "{testimonial.content}"
                 </p>
                 <div className="flex items-center">
@@ -266,10 +266,10 @@ const Home = () => {
                     alt={testimonial.author}
                   />
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-secondary-900">
+                    <p className="text-sm font-medium text-secondary-900 dark:text-secondary-100">
                       {testimonial.author}
                     </p>
-                    <p className="text-xs text-secondary-500">
+                    <p className="text-xs text-secondary-500 dark:text-secondary-400">
                       {testimonial.role}
                     </p>
                   </div>

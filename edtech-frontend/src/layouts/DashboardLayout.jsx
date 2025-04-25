@@ -10,15 +10,18 @@ const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-secondary-100">
+    <div className="flex h-screen bg-secondary-100 dark:bg-secondary-950 !important">
       {/* Sidebar */}
-      <Sidebar user={user} isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <DashboardHeader user={user} openSidebar={() => setSidebarOpen(true)} />
+        <DashboardHeader 
+          toggleSidebar={() => setSidebarOpen(!sidebarOpen)} 
+          isSidebarOpen={sidebarOpen} 
+        />
 
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-secondary-100 p-6">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-secondary-100 dark:bg-secondary-950 !important p-6">
           <div className="container mx-auto">
             <Outlet />
           </div>

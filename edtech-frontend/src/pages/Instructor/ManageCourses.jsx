@@ -11,6 +11,10 @@ import {
   PlusIcon,
   UserGroupIcon,
   FilmIcon,
+  XCircleIcon,
+  CheckCircleIcon,
+  PlayIcon,
+  BookOpenIcon,
 } from "@heroicons/react/24/outline";
 
 const ManageCourses = () => {
@@ -48,113 +52,143 @@ const ManageCourses = () => {
   return (
     <div className="py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-secondary-900 dark:text-white">
+            Manage Courses
+          </h1>
+          <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400">
+            Create, edit and manage your courses
+          </p>
+        </div>
+
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-secondary-900">
-              My Courses
-            </h1>
-            <p className="mt-1 text-sm text-secondary-500">
-              Manage and update your courses
-            </p>
+            <Link
+              to="/instructor/courses/create"
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+            >
+              <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+              Create New Course
+            </Link>
           </div>
-          <Link
-            to="/instructor/courses/create"
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700"
-          >
-            <PlusIcon className="h-4 w-4 mr-2" />
-            Create New Course
-          </Link>
         </div>
 
         {isLoading ? (
-          <Loader />
+          <div className="flex justify-center py-8">
+            <Loader />
+          </div>
+        ) : error ? (
+          <div className="rounded-md bg-red-50 dark:bg-red-900/20 p-4">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <XCircleIcon
+                  className="h-5 w-5 text-red-400 dark:text-red-500"
+                  aria-hidden="true"
+                />
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-red-800 dark:text-red-400">
+                  Error loading courses
+                </h3>
+                <div className="mt-2 text-sm text-red-700 dark:text-red-300">
+                  <p>Failed to load your courses. Please try again.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         ) : myCourses.length > 0 ? (
-          <div className="bg-white shadow overflow-hidden sm:rounded-md">
-            <ul className="divide-y divide-secondary-200">
+          <div className="bg-white dark:bg-secondary-800 !important shadow overflow-hidden sm:rounded-md">
+            <ul className="divide-y divide-secondary-200 dark:divide-secondary-700">
               {myCourses.map((course) => (
                 <li key={course._id}>
-                  <div className="flex items-center p-6">
-                    <div className="flex min-w-0 flex-1 items-center">
-                      <div className="flex-shrink-0">
-                        <img
-                          className="h-16 w-16 rounded object-cover"
-                          src={course.thumbnail}
-                          alt={course.title}
-                        />
-                      </div>
-                      <div className="min-w-0 flex-1 px-4">
+                  <div className="px-4 py-4 sm:px-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0 h-16 w-16 rounded-md overflow-hidden mr-4">
+                          <img
+                            src={course.thumbnail}
+                            alt={course.title}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
                         <div>
-                          <Link
-                            to={`/courses/${course._id}`}
-                            className="text-lg font-medium text-primary-600 hover:text-primary-700"
-                          >
+                          <p className="text-sm font-medium text-primary-600 dark:text-primary-400">
                             {course.title}
-                          </Link>
-
-                          <div className="mt-1 flex items-center text-sm text-secondary-500">
-                            <span className="truncate">{course.category}</span>
-                            <span className="mx-1">•</span>
-                            <span>
+                          </p>
+                          <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400 line-clamp-1">
+                            {course.subtitle || course.description}
+                          </p>
+                          <div className="mt-2 flex flex-wrap gap-2">
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary-100 dark:bg-secondary-700 text-secondary-800 dark:text-secondary-300">
+                              {course.category}
+                            </span>
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary-100 dark:bg-secondary-700 text-secondary-800 dark:text-secondary-300">
                               {course.level.charAt(0).toUpperCase() +
                                 course.level.slice(1)}
                             </span>
-                            <span className="mx-1">•</span>
-                            <span>{formatCurrency(course.price)}</span>
-                          </div>
-                        </div>
-
-                        <div className="mt-2 flex items-center space-x-6">
-                          <div className="flex items-center text-sm text-secondary-500">
-                            <UserGroupIcon className="h-4 w-4 mr-1" />
-                            <span>
-                              {course.enrolledStudents?.length || 0} students
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary-100 dark:bg-secondary-700 text-secondary-800 dark:text-secondary-300">
+                              {course.lectures?.length || 0} lectures
                             </span>
-                          </div>
-
-                          <div className="flex items-center text-sm text-secondary-500">
-                            <FilmIcon className="h-4 w-4 mr-1" />
-                            <span>{course.lectures?.length || 0} lectures</span>
+                            {course.isPublished ? (
+                              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
+                                Published
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400">
+                                Draft
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>
-
-                      <div className="flex items-center space-x-4 pr-4">
-                        <span
-                          className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <Link
+                          to={`/instructor/courses/${course._id}/edit`}
+                          className="inline-flex items-center px-3 py-1.5 border border-secondary-300 dark:border-secondary-600 text-xs font-medium rounded text-secondary-700 dark:text-secondary-300 bg-white dark:bg-secondary-700 hover:bg-secondary-50 dark:hover:bg-secondary-600"
+                        >
+                          <PencilIcon
+                            className="-ml-0.5 mr-1 h-4 w-4"
+                            aria-hidden="true"
+                          />
+                          Edit
+                        </Link>
+                        <Link
+                          to={`/instructor/courses/${course._id}/upload-lecture`}
+                          className="inline-flex items-center px-3 py-1.5 border border-secondary-300 dark:border-secondary-600 text-xs font-medium rounded text-secondary-700 dark:text-secondary-300 bg-white dark:bg-secondary-700 hover:bg-secondary-50 dark:hover:bg-secondary-600"
+                        >
+                          <PlayIcon
+                            className="-ml-0.5 mr-1 h-4 w-4"
+                            aria-hidden="true"
+                          />
+                          Lectures
+                        </Link>
+                        <button
+                          onClick={() => handlePublishToggle(course)}
+                          className={`inline-flex items-center px-3 py-1.5 border text-xs font-medium rounded ${
                             course.isPublished
-                              ? "bg-green-100 text-green-800"
-                              : "bg-yellow-100 text-yellow-800"
+                              ? "border-red-300 dark:border-red-800 text-red-700 dark:text-red-400 bg-white dark:bg-secondary-700 hover:bg-red-50 dark:hover:bg-red-900/20"
+                              : "border-green-300 dark:border-green-800 text-green-700 dark:text-green-400 bg-white dark:bg-secondary-700 hover:bg-green-50 dark:hover:bg-green-900/20"
                           }`}
                         >
-                          {course.isPublished ? "Published" : "Draft"}
-                        </span>
+                          {course.isPublished ? (
+                            <>
+                              <XCircleIcon
+                                className="-ml-0.5 mr-1 h-4 w-4"
+                                aria-hidden="true"
+                              />
+                              Unpublish
+                            </>
+                          ) : (
+                            <>
+                              <CheckCircleIcon
+                                className="-ml-0.5 mr-1 h-4 w-4"
+                                aria-hidden="true"
+                              />
+                              Publish
+                            </>
+                          )}
+                        </button>
                       </div>
-                    </div>
-
-                    <div className="flex space-x-2">
-                      <Link
-                        to={`/instructor/courses/edit/${course._id}`}
-                        className="inline-flex items-center px-3 py-1.5 border border-secondary-300 text-sm leading-5 font-medium rounded-md text-secondary-700 bg-white hover:bg-secondary-50"
-                      >
-                        <PencilIcon className="h-4 w-4 mr-1" />
-                        Edit
-                      </Link>
-
-                      <Link
-                        to={`/courses/${course._id}`}
-                        className="inline-flex items-center px-3 py-1.5 border border-secondary-300 text-sm leading-5 font-medium rounded-md text-secondary-700 bg-white hover:bg-secondary-50"
-                      >
-                        <EyeIcon className="h-4 w-4 mr-1" />
-                        View
-                      </Link>
-
-                      <Link
-                        to={`/instructor/courses/${course._id}/upload-lecture`}
-                        className="inline-flex items-center px-3 py-1.5 border border-primary-300 text-sm leading-5 font-medium rounded-md text-primary-700 bg-white hover:bg-primary-50"
-                      >
-                        <PlusIcon className="h-4 w-4 mr-1" />
-                        Add Lecture
-                      </Link>
                     </div>
                   </div>
                 </li>
@@ -162,34 +196,21 @@ const ManageCourses = () => {
             </ul>
           </div>
         ) : (
-          <div className="bg-white shadow rounded-lg">
-            <div className="p-6 text-center">
-              <svg
-                className="mx-auto h-12 w-12 text-secondary-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              <h3 className="mt-2 text-lg font-medium text-secondary-900">
+          <div className="bg-white dark:bg-secondary-800 !important shadow rounded-lg">
+            <div className="px-4 py-12 text-center sm:px-6">
+              <BookOpenIcon className="mx-auto h-12 w-12 text-secondary-400 dark:text-secondary-500" />
+              <h3 className="mt-2 text-lg font-medium text-secondary-900 dark:text-white">
                 No courses yet
               </h3>
-              <p className="mt-1 text-sm text-secondary-500">
-                Get started by creating your first course.
+              <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400">
+                Get started by creating a new course.
               </p>
               <div className="mt-6">
                 <Link
                   to="/instructor/courses/create"
-                  className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700"
+                  className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600"
                 >
-                  <PlusIcon className="h-4 w-4 mr-2" />
+                  <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
                   Create New Course
                 </Link>
               </div>

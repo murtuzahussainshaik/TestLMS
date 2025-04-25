@@ -88,7 +88,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-secondary-600 bg-opacity-75" />
+            <div className="fixed inset-0 bg-secondary-600 bg-opacity-75 dark:bg-secondary-900 dark:bg-opacity-75" />
           </Transition.Child>
 
           <div className="fixed inset-0 flex">
@@ -101,7 +101,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <Dialog.Panel className="relative max-w-xs w-full bg-white pt-5 pb-4 flex-1 flex flex-col">
+              <Dialog.Panel className="relative max-w-xs w-full bg-white dark:bg-secondary-800 pt-5 pb-4 flex-1 flex flex-col">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"
@@ -128,7 +128,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
                 <div className="flex-shrink-0 px-4 flex items-center">
                   <AcademicCapIcon className="h-8 w-auto text-primary-600" />
-                  <span className="ml-2 text-xl font-bold text-primary-900">
+                  <span className="ml-2 text-xl font-bold text-primary-900 dark:text-primary-100">
                     EduTech
                   </span>
                 </div>
@@ -142,8 +142,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                         className={`
                           ${
                             pathname === item.href
-                              ? "bg-primary-100 text-primary-900"
-                              : "text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900"
+                              ? "bg-primary-100 text-primary-900 dark:bg-primary-900/10 dark:text-primary-100"
+                              : "text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900 dark:text-secondary-300 dark:hover:bg-secondary-700 dark:hover:text-secondary-100"
                           }
                           group flex items-center px-2 py-2 text-sm font-medium rounded-md
                         `}
@@ -153,8 +153,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                           className={`
                             ${
                               pathname === item.href
-                                ? "text-primary-500"
-                                : "text-secondary-400 group-hover:text-secondary-500"
+                                ? "text-primary-500 dark:text-primary-400"
+                                : "text-secondary-400 group-hover:text-secondary-500 dark:text-secondary-400 dark:group-hover:text-secondary-300"
                             }
                             mr-3 flex-shrink-0 h-6 w-6
                           `}
@@ -165,10 +165,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                     ))}
                     <button
                       onClick={logout}
-                      className="w-full text-left text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                      className="w-full text-left text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900 dark:text-secondary-300 dark:hover:bg-secondary-700 dark:hover:text-secondary-100 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                     >
                       <ArrowLeftOnRectangleIcon
-                        className="text-secondary-400 group-hover:text-secondary-500 mr-3 flex-shrink-0 h-6 w-6"
+                        className="text-secondary-400 group-hover:text-secondary-500 dark:text-secondary-400 dark:group-hover:text-secondary-300 mr-3 flex-shrink-0 h-6 w-6"
                         aria-hidden="true"
                       />
                       Logout
@@ -184,10 +184,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       {/* Desktop sidebar */}
       <div className="hidden md:flex md:flex-shrink-0">
         <div className="w-64 flex flex-col">
-          <div className="border-r border-secondary-200 pt-5 pb-4 flex flex-col h-full bg-white overflow-y-auto">
+          <div className="border-r border-secondary-200 dark:border-secondary-700 pt-5 pb-4 flex flex-col h-full bg-white dark:bg-secondary-800 overflow-y-auto">
             <div className="flex-shrink-0 px-4 flex items-center">
               <AcademicCapIcon className="h-8 w-auto text-primary-600" />
-              <span className="ml-2 text-xl font-bold text-primary-900">
+              <span className="ml-2 text-xl font-bold text-primary-900 dark:text-primary-100">
                 EduTech
               </span>
             </div>
@@ -202,8 +202,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                       ${
                         pathname === item.href ||
                         pathname.startsWith(item.href + "/")
-                          ? "bg-primary-100 text-primary-900"
-                          : "text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900"
+                          ? "bg-primary-100 text-primary-900 dark:bg-primary-900/10 dark:text-primary-100"
+                          : "text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900 dark:text-secondary-300 dark:hover:bg-secondary-700 dark:hover:text-secondary-100"
                       }
                       group flex items-center px-2 py-2 text-sm font-medium rounded-md
                     `}
@@ -213,8 +213,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                         ${
                           pathname === item.href ||
                           pathname.startsWith(item.href + "/")
-                            ? "text-primary-500"
-                            : "text-secondary-400 group-hover:text-secondary-500"
+                            ? "text-primary-500 dark:text-primary-400"
+                            : "text-secondary-400 group-hover:text-secondary-500 dark:text-secondary-400 dark:group-hover:text-secondary-300"
                         }
                         mr-3 flex-shrink-0 h-6 w-6
                       `}
@@ -228,10 +228,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
               <div className="px-4 mt-auto pb-4">
                 <button
                   onClick={logout}
-                  className="w-full text-left text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                  className="w-full text-left text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900 dark:text-secondary-300 dark:hover:bg-secondary-700 dark:hover:text-secondary-100 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                 >
                   <ArrowLeftOnRectangleIcon
-                    className="text-secondary-400 group-hover:text-secondary-500 mr-3 flex-shrink-0 h-6 w-6"
+                    className="text-secondary-400 group-hover:text-secondary-500 dark:text-secondary-400 dark:group-hover:text-secondary-300 mr-3 flex-shrink-0 h-6 w-6"
                     aria-hidden="true"
                   />
                   Logout

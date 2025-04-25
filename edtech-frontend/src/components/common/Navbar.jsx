@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import ThemeToggle from "./ThemeToggle";
 import {
   Bars3Icon,
   XMarkIcon,
@@ -24,79 +25,70 @@ const Navbar = () => {
     navigate("/");
   };
 
+  const baseNavClass = "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium";
+  const activeNavClass = "border-primary-500 text-primary-900 dark:text-primary-300";
+  const inactiveNavClass = "border-transparent text-secondary-500 hover:border-secondary-300 hover:text-secondary-700 dark:text-secondary-400 dark:hover:border-secondary-600 dark:hover:text-secondary-200";
+  
+  const getNavLinkClass = ({ isActive }) => 
+    `${baseNavClass} ${isActive ? activeNavClass : inactiveNavClass}`;
+
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className="bg-white dark:bg-secondary-800 shadow-sm dark:shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             {/* Logo */}
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <AcademicCapIcon className="h-8 w-auto text-primary-600" />
-              <span className="ml-2 text-xl font-bold text-primary-900">
+              <AcademicCapIcon className="h-8 w-auto text-primary-600 dark:text-primary-400" />
+              <span className="ml-2 text-xl font-bold text-primary-900 dark:text-primary-300">
                 EduTech
               </span>
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "border-primary-500 text-primary-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                    : "border-transparent text-secondary-500 hover:border-secondary-300 hover:text-secondary-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                }
-              >
+              <NavLink to="/" className={getNavLinkClass}>
                 Home
               </NavLink>
 
-              <NavLink
-                to="/courses"
-                className={({ isActive }) =>
-                  isActive
-                    ? "border-primary-500 text-primary-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                    : "border-transparent text-secondary-500 hover:border-secondary-300 hover:text-secondary-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                }
-              >
+              <NavLink to="/courses" className={getNavLinkClass}>
                 Courses
               </NavLink>
 
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  isActive
-                    ? "border-primary-500 text-primary-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                    : "border-transparent text-secondary-500 hover:border-secondary-300 hover:text-secondary-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                }
-              >
+              <NavLink to="/about" className={getNavLinkClass}>
                 About
               </NavLink>
             </div>
           </div>
 
-          {/* Authentication buttons */}
+          {/* Authentication buttons & Theme Toggle */}
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
+            {/* Theme Toggle */}
+            <ThemeToggle />
+            
+            {/* Authentication */}
             {isAuthenticated ? (
               <div className="relative ml-3">
                 <div>
                   <button
                     onClick={toggleProfile}
-                    className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                    className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-offset-secondary-800"
                   >
                     {user?.avatar && user.avatar !== "undefined" ? (
                       <img
-                        className="h-8 w-8 rounded-full object-cover border border-secondary-200"
+                        className="h-8 w-8 rounded-full object-cover border border-secondary-200 dark:border-secondary-600"
                         src={user.avatar}
                         alt={user.name}
                         onError={(e) => {
                           e.target.onerror = null;
                           e.target.style.display = 'none';
-                          e.target.parentElement.innerHTML = '<div class="h-8 w-8 rounded-full bg-secondary-100 flex items-center justify-center"><span class="text-secondary-600 font-medium text-sm">' + (user?.name?.charAt(0).toUpperCase() || 'U') + '</span></div>';
+                          const initials = user?.name?.charAt(0).toUpperCase() || 'U';
+                          e.target.outerHTML = `<div class="h-8 w-8 rounded-full bg-secondary-200 dark:bg-secondary-700 flex items-center justify-center"><span class="text-secondary-600 dark:text-secondary-300 font-medium text-sm">${initials}</span></div>`;
                         }}
                       />
                     ) : (
-                      <div className="h-8 w-8 rounded-full bg-secondary-100 flex items-center justify-center">
-                        <span className="text-secondary-600 font-medium text-sm">
+                      <div className="h-8 w-8 rounded-full bg-secondary-200 dark:bg-secondary-700 flex items-center justify-center">
+                        <span className="text-secondary-600 dark:text-secondary-300 font-medium text-sm">
                           {user?.name?.charAt(0).toUpperCase() || 'U'}
                         </span>
                       </div>
@@ -105,29 +97,28 @@ const Navbar = () => {
                 </div>
 
                 {isProfileOpen && (
-                  <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1">
-                    <div className="px-4 py-2 border-b">
-                      <p className="text-sm font-medium text-secondary-900">
+                  <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-secondary-700 ring-1 ring-black ring-opacity-5 dark:ring-secondary-600 py-1 z-10">
+                    <div className="px-4 py-2 border-b dark:border-secondary-600">
+                      <p className="text-sm font-medium text-secondary-900 dark:text-secondary-100 truncate">
                         {user?.name}
                       </p>
-                      <p className="text-xs text-secondary-500">
+                      <p className="text-xs text-secondary-500 dark:text-secondary-400 truncate">
                         {user?.email}
                       </p>
                     </div>
 
                     <Link
                       to="/dashboard"
-                      className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100"
+                      className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100 dark:text-secondary-200 dark:hover:bg-secondary-600"
                       onClick={() => setIsProfileOpen(false)}
                     >
                       Dashboard
                     </Link>
 
-                    {(user?.role === "instructor" ||
-                      user?.role === "admin") && (
+                    {(user?.role === "instructor" || user?.role === "admin") && (
                       <Link
-                        to="/instructor"
-                        className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100"
+                        to="/instructor/dashboard"
+                        className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100 dark:text-secondary-200 dark:hover:bg-secondary-600"
                         onClick={() => setIsProfileOpen(false)}
                       >
                         Instructor Dashboard
@@ -136,7 +127,7 @@ const Navbar = () => {
 
                     <button
                       onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100"
+                      className="block w-full text-left px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100 dark:text-secondary-200 dark:hover:bg-secondary-600"
                     >
                       Logout
                     </button>
@@ -147,7 +138,7 @@ const Navbar = () => {
               <div className="flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-secondary-500 hover:text-secondary-700 px-3 py-2 text-sm font-medium"
+                  className="text-secondary-500 hover:text-secondary-700 dark:text-secondary-400 dark:hover:text-secondary-200 px-3 py-2 text-sm font-medium"
                 >
                   Login
                 </Link>
@@ -158,11 +149,12 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu button & Theme Toggle */}
           <div className="flex items-center sm:hidden">
+            <ThemeToggle />
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-secondary-400 hover:text-secondary-500 hover:bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
+              className="ml-2 inline-flex items-center justify-center p-2 rounded-md text-secondary-400 hover:text-secondary-500 hover:bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 dark:text-secondary-500 dark:hover:bg-secondary-700 dark:focus:ring-secondary-600"
             >
               {isMenuOpen ? (
                 <XMarkIcon className="h-6 w-6" />
@@ -176,14 +168,14 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="sm:hidden">
-          <div className="pt-2 pb-3 space-y-1">
+        <div className="sm:hidden absolute top-16 inset-x-0 bg-white dark:bg-secondary-800 border-t border-secondary-200 dark:border-secondary-700 shadow-lg z-20">
+          <div className="pt-2 pb-3 space-y-1 px-2">
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive
-                  ? "bg-primary-50 border-primary-500 text-primary-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-                  : "border-transparent text-secondary-500 hover:bg-secondary-50 hover:border-secondary-300 hover:text-secondary-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                `block px-3 py-2 rounded-md text-base font-medium ${isActive 
+                  ? 'bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-white' 
+                  : 'text-secondary-600 dark:text-secondary-300 hover:bg-secondary-50 dark:hover:bg-secondary-700 hover:text-secondary-900 dark:hover:text-white'}`
               }
               onClick={closeMenu}
             >
@@ -193,9 +185,9 @@ const Navbar = () => {
             <NavLink
               to="/courses"
               className={({ isActive }) =>
-                isActive
-                  ? "bg-primary-50 border-primary-500 text-primary-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-                  : "border-transparent text-secondary-500 hover:bg-secondary-50 hover:border-secondary-300 hover:text-secondary-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                `block px-3 py-2 rounded-md text-base font-medium ${isActive 
+                  ? 'bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-white' 
+                  : 'text-secondary-600 dark:text-secondary-300 hover:bg-secondary-50 dark:hover:bg-secondary-700 hover:text-secondary-900 dark:hover:text-white'}`
               }
               onClick={closeMenu}
             >
@@ -205,9 +197,9 @@ const Navbar = () => {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                isActive
-                  ? "bg-primary-50 border-primary-500 text-primary-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-                  : "border-transparent text-secondary-500 hover:bg-secondary-50 hover:border-secondary-300 hover:text-secondary-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                `block px-3 py-2 rounded-md text-base font-medium ${isActive 
+                  ? 'bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-white' 
+                  : 'text-secondary-600 dark:text-secondary-300 hover:bg-secondary-50 dark:hover:bg-secondary-700 hover:text-secondary-900 dark:hover:text-white'}`
               }
               onClick={closeMenu}
             >
@@ -216,79 +208,75 @@ const Navbar = () => {
           </div>
 
           {/* Mobile authentication */}
-          <div className="pt-4 pb-3 border-t border-secondary-200">
+          <div className="pt-4 pb-3 border-t border-secondary-200 dark:border-secondary-700">
             {isAuthenticated ? (
               <>
-                <div className="flex items-center px-4">
+                <div className="flex items-center px-5">
                   {user?.avatar && user.avatar !== "undefined" ? (
                     <img
-                      className="h-10 w-10 rounded-full object-cover border border-secondary-200"
+                      className="h-10 w-10 rounded-full object-cover border border-secondary-200 dark:border-secondary-600"
                       src={user.avatar}
                       alt={user.name}
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.style.display = 'none';
-                        e.target.parentElement.innerHTML = '<div class="h-10 w-10 rounded-full bg-secondary-100 flex items-center justify-center"><span class="text-secondary-600 font-medium text-sm">' + (user?.name?.charAt(0).toUpperCase() || 'U') + '</span></div>';
+                        const initials = user?.name?.charAt(0).toUpperCase() || 'U';
+                        e.target.outerHTML = `<div class="h-10 w-10 rounded-full bg-secondary-200 dark:bg-secondary-700 flex items-center justify-center"><span class="text-secondary-600 dark:text-secondary-300 font-medium text-sm">${initials}</span></div>`;
                       }}
                     />
                   ) : (
-                    <div className="h-10 w-10 rounded-full bg-secondary-100 flex items-center justify-center">
-                      <span className="text-secondary-600 font-medium text-sm">
+                    <div className="h-10 w-10 rounded-full bg-secondary-200 dark:bg-secondary-700 flex items-center justify-center">
+                      <span className="text-secondary-600 dark:text-secondary-300 font-medium text-sm">
                         {user?.name?.charAt(0).toUpperCase() || 'U'}
                       </span>
                     </div>
                   )}
                   <div className="ml-3">
-                    <div className="text-base font-medium text-secondary-800">
+                    <div className="text-base font-medium text-secondary-800 dark:text-secondary-100">
                       {user?.name}
                     </div>
-                    <div className="text-sm font-medium text-secondary-500">
+                    <div className="text-sm font-medium text-secondary-500 dark:text-secondary-400">
                       {user?.email}
                     </div>
                   </div>
                 </div>
-                <div className="mt-3 space-y-1">
+                <div className="mt-3 px-2 space-y-1">
                   <Link
                     to="/dashboard"
-                    className="block px-4 py-2 text-base font-medium text-secondary-500 hover:text-secondary-800 hover:bg-secondary-100"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-secondary-600 dark:text-secondary-300 hover:bg-secondary-50 dark:hover:bg-secondary-700 hover:text-secondary-900 dark:hover:text-white"
                     onClick={closeMenu}
                   >
                     Dashboard
                   </Link>
-
                   {(user?.role === "instructor" || user?.role === "admin") && (
                     <Link
-                      to="/instructor"
-                      className="block px-4 py-2 text-base font-medium text-secondary-500 hover:text-secondary-800 hover:bg-secondary-100"
+                      to="/instructor/dashboard"
+                      className="block px-3 py-2 rounded-md text-base font-medium text-secondary-600 dark:text-secondary-300 hover:bg-secondary-50 dark:hover:bg-secondary-700 hover:text-secondary-900 dark:hover:text-white"
                       onClick={closeMenu}
                     >
                       Instructor Dashboard
                     </Link>
                   )}
-
                   <button
-                    onClick={() => {
-                      handleLogout();
-                      closeMenu();
-                    }}
-                    className="block w-full text-left px-4 py-2 text-base font-medium text-secondary-500 hover:text-secondary-800 hover:bg-secondary-100"
+                    onClick={() => { handleLogout(); closeMenu(); }}
+                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-secondary-600 dark:text-secondary-300 hover:bg-secondary-50 dark:hover:bg-secondary-700 hover:text-secondary-900 dark:hover:text-white"
                   >
                     Logout
                   </button>
                 </div>
               </>
             ) : (
-              <div className="space-y-1 px-4">
+              <div className="px-2 space-y-1">
                 <Link
                   to="/login"
-                  className="block text-center py-2 text-base font-medium text-secondary-500 hover:text-secondary-800 hover:bg-secondary-100 rounded-md"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-secondary-600 dark:text-secondary-300 hover:bg-secondary-50 dark:hover:bg-secondary-700 hover:text-secondary-900 dark:hover:text-white"
                   onClick={closeMenu}
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="block w-full py-2 text-base font-medium text-center text-white bg-primary-600 hover:bg-primary-700 rounded-md"
+                  className="block w-full text-center px-3 py-2 rounded-md text-base font-medium btn btn-primary"
                   onClick={closeMenu}
                 >
                   Register

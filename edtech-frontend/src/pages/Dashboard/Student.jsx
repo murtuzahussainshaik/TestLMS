@@ -60,10 +60,10 @@ const StudentDashboard = () => {
     <div className="py-6">
       {/* Welcome section */}
       <div className="px-4 sm:px-6 lg:px-8 mb-8">
-        <h1 className="text-2xl font-bold text-secondary-900">
+        <h1 className="text-2xl font-bold text-secondary-900 dark:text-white">
           Welcome back, {user?.name || "Student"}!
         </h1>
-        <p className="mt-1 text-sm text-secondary-500">
+        <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400">
           Track your progress and continue learning from where you left off.
         </p>
       </div>
@@ -72,7 +72,7 @@ const StudentDashboard = () => {
       <div className="px-4 sm:px-6 lg:px-8 mb-8">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {/* Enrolled courses */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-white dark:bg-secondary-800 overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
@@ -83,11 +83,11 @@ const StudentDashboard = () => {
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-secondary-500 truncate">
+                    <dt className="text-sm font-medium text-secondary-500 dark:text-secondary-400 truncate">
                       Enrolled Courses
                     </dt>
                     <dd>
-                      <div className="text-lg font-medium text-secondary-900">
+                      <div className="text-lg font-medium text-secondary-900 dark:text-white">
                         {enrolledCourses.length}
                       </div>
                     </dd>
@@ -98,22 +98,22 @@ const StudentDashboard = () => {
           </div>
 
           {/* Completed courses */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-white dark:bg-secondary-800 overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <CheckCircleIcon
-                    className="h-6 w-6 text-green-600"
+                    className="h-6 w-6 text-green-600 dark:text-green-500"
                     aria-hidden="true"
                   />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-secondary-500 truncate">
+                    <dt className="text-sm font-medium text-secondary-500 dark:text-secondary-400 truncate">
                       Completed Courses
                     </dt>
                     <dd>
-                      <div className="text-lg font-medium text-secondary-900">
+                      <div className="text-lg font-medium text-secondary-900 dark:text-white">
                         {
                           enrolledCourses.filter(
                             (course) => course.progress?.isCompleted
@@ -128,12 +128,12 @@ const StudentDashboard = () => {
           </div>
 
           {/* Overall progress */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-white dark:bg-secondary-800 overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <svg
-                    className="h-6 w-6 text-yellow-600"
+                    className="h-6 w-6 text-yellow-600 dark:text-yellow-500"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -149,11 +149,11 @@ const StudentDashboard = () => {
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-secondary-500 truncate">
+                    <dt className="text-sm font-medium text-secondary-500 dark:text-secondary-400 truncate">
                       Overall Progress
                     </dt>
                     <dd>
-                      <div className="text-lg font-medium text-secondary-900">
+                      <div className="text-lg font-medium text-secondary-900 dark:text-white">
                         {getOverallProgress()}%
                       </div>
                     </dd>
@@ -167,7 +167,7 @@ const StudentDashboard = () => {
 
       {/* My courses section */}
       <div className="px-4 sm:px-6 lg:px-8 mb-8">
-        <h2 className="text-lg font-medium text-secondary-900 mb-4">
+        <h2 className="text-lg font-medium text-secondary-900 dark:text-white mb-4">
           My Courses
         </h2>
 
@@ -180,18 +180,18 @@ const StudentDashboard = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 bg-white rounded-lg shadow">
-            <BookOpenIcon className="mx-auto h-12 w-12 text-secondary-400" />
-            <h3 className="mt-2 text-lg font-medium text-secondary-900">
+          <div className="text-center py-12 bg-white dark:bg-secondary-800 rounded-lg shadow">
+            <BookOpenIcon className="mx-auto h-12 w-12 text-secondary-400 dark:text-secondary-500" />
+            <h3 className="mt-2 text-lg font-medium text-secondary-900 dark:text-white">
               No courses yet
             </h3>
-            <p className="mt-1 text-sm text-secondary-500">
+            <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400">
               You haven't enrolled in any courses yet.
             </p>
             <div className="mt-6">
               <Link
                 to="/courses"
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700"
+                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600"
               >
                 Browse Courses
               </Link>
@@ -203,7 +203,7 @@ const StudentDashboard = () => {
       {/* Recommended courses section */}
       {publishedData?.data && publishedData.data.length > 0 && (
         <div className="px-4 sm:px-6 lg:px-8">
-          <h2 className="text-lg font-medium text-secondary-900 mb-4">
+          <h2 className="text-lg font-medium text-secondary-900 dark:text-white mb-4">
             Recommended for You
           </h2>
 
@@ -214,7 +214,7 @@ const StudentDashboard = () => {
               {publishedData.data.map((course) => (
                 <div
                   key={course._id}
-                  className="bg-white overflow-hidden shadow rounded-lg"
+                  className="bg-white dark:bg-secondary-800 overflow-hidden shadow rounded-lg"
                 >
                   <div className="relative h-36">
                     <img
@@ -224,22 +224,22 @@ const StudentDashboard = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-secondary-900 via-secondary-900/20 to-transparent opacity-50"></div>
                     <div className="absolute bottom-2 left-2">
-                      <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-primary-100 text-primary-800">
+                      <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300">
                         {course.category}
                       </span>
                     </div>
                   </div>
                   <div className="p-4">
-                    <h3 className="text-sm font-medium text-secondary-900 line-clamp-2">
+                    <h3 className="text-sm font-medium text-secondary-900 dark:text-white line-clamp-2">
                       {course.title}
                     </h3>
-                    <p className="mt-1 text-xs text-secondary-500 line-clamp-2">
+                    <p className="mt-1 text-xs text-secondary-500 dark:text-secondary-400 line-clamp-2">
                       {course.subtitle || course.description}
                     </p>
                     <div className="mt-4">
                       <Link
                         to={`/courses/${course._id}`}
-                        className="text-sm font-medium text-primary-600 hover:text-primary-700"
+                        className="text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
                       >
                         View Details
                       </Link>

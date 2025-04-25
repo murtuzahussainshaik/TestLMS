@@ -96,7 +96,7 @@ const InstructorDashboard = () => {
       <div className="px-4 sm:px-6 lg:px-8 mb-8">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {/* Total courses */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-white dark:bg-secondary-800 !important overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
@@ -107,11 +107,11 @@ const InstructorDashboard = () => {
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-secondary-500 truncate">
+                    <dt className="text-sm font-medium text-secondary-500 dark:text-secondary-400 truncate">
                       Total Courses
                     </dt>
                     <dd>
-                      <div className="text-lg font-medium text-secondary-900">
+                      <div className="text-lg font-medium text-secondary-900 dark:text-white">
                         {stats.totalCourses}
                       </div>
                     </dd>
@@ -122,22 +122,22 @@ const InstructorDashboard = () => {
           </div>
 
           {/* Total students */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-white dark:bg-secondary-800 !important overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <UserGroupIcon
-                    className="h-6 w-6 text-green-600"
+                    className="h-6 w-6 text-green-600 dark:text-green-500"
                     aria-hidden="true"
                   />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-secondary-500 truncate">
+                    <dt className="text-sm font-medium text-secondary-500 dark:text-secondary-400 truncate">
                       Total Students
                     </dt>
                     <dd>
-                      <div className="text-lg font-medium text-secondary-900">
+                      <div className="text-lg font-medium text-secondary-900 dark:text-white">
                         {stats.totalStudents}
                       </div>
                     </dd>
@@ -148,22 +148,22 @@ const InstructorDashboard = () => {
           </div>
 
           {/* Total revenue */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-white dark:bg-secondary-800 !important overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <CurrencyRupeeIcon
-                    className="h-6 w-6 text-yellow-600"
+                    className="h-6 w-6 text-yellow-600 dark:text-yellow-500"
                     aria-hidden="true"
                   />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-secondary-500 truncate">
+                    <dt className="text-sm font-medium text-secondary-500 dark:text-secondary-400 truncate">
                       Total Revenue
                     </dt>
                     <dd>
-                      <div className="text-lg font-medium text-secondary-900">
+                      <div className="text-lg font-medium text-secondary-900 dark:text-white">
                         {formatCurrency(stats.totalRevenue)}
                       </div>
                     </dd>
@@ -174,22 +174,22 @@ const InstructorDashboard = () => {
           </div>
 
           {/* Published courses */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="bg-white dark:bg-secondary-800 !important overflow-hidden shadow rounded-lg">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <ChartBarIcon
-                    className="h-6 w-6 text-purple-600"
+                    className="h-6 w-6 text-purple-600 dark:text-purple-500"
                     aria-hidden="true"
                   />
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-secondary-500 truncate">
+                    <dt className="text-sm font-medium text-secondary-500 dark:text-secondary-400 truncate">
                       Published Courses
                     </dt>
                     <dd>
-                      <div className="text-lg font-medium text-secondary-900">
+                      <div className="text-lg font-medium text-secondary-900 dark:text-white">
                         {stats.publishedCourses} / {stats.totalCourses}
                       </div>
                     </dd>
@@ -203,21 +203,25 @@ const InstructorDashboard = () => {
 
       {/* My courses section */}
       <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-medium text-secondary-900">My Courses</h2>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+          <h2 className="text-lg font-medium text-secondary-900 dark:text-white">
+            My Courses
+          </h2>
+
           <Link
             to="/instructor/courses"
-            className="text-sm font-medium text-primary-600 hover:text-primary-700"
+            className="inline-flex items-center mt-3 md:mt-0 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300"
           >
             View All
+            <span className="ml-1">→</span>
           </Link>
         </div>
 
         {isLoading ? (
           <Loader />
         ) : myCourses.length > 0 ? (
-          <div className="overflow-hidden bg-white shadow sm:rounded-md">
-            <ul className="divide-y divide-secondary-200">
+          <div className="overflow-hidden bg-white dark:bg-secondary-800 !important shadow sm:rounded-md">
+            <ul className="divide-y divide-secondary-200 dark:divide-secondary-700">
               {myCourses.slice(0, 5).map((course) => (
                 <li key={course._id}>
                   <div className="flex items-center p-4 sm:px-6">

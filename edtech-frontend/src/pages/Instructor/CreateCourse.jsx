@@ -96,12 +96,12 @@ const CreateCourse = () => {
   return (
     <div className="py-6">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white shadow rounded-lg">
-          <div className="px-6 py-4 border-b border-secondary-200">
-            <h2 className="text-xl font-semibold text-secondary-900">
+        <div className="bg-white dark:bg-secondary-800 !important shadow rounded-lg">
+          <div className="px-6 py-4 border-b border-secondary-200 dark:border-secondary-700">
+            <h2 className="text-xl font-semibold text-secondary-900 dark:text-white !important">
               Create New Course
             </h2>
-            <p className="mt-1 text-sm text-secondary-500">
+            <p className="mt-1 text-sm text-secondary-500 dark:text-secondary-400">
               Fill in the details to create your new course
             </p>
           </div>
@@ -114,7 +114,7 @@ const CreateCourse = () => {
             <div>
               <label
                 htmlFor="title"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Course Title <span className="text-red-500">*</span>
               </label>
@@ -122,10 +122,10 @@ const CreateCourse = () => {
                 id="title"
                 type="text"
                 {...register("title", { required: "Title is required" })}
-                className={`mt-1 input ${errors.title ? "border-red-300" : ""}`}
+                className={`mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white ${errors.title ? "border-red-300 dark:border-red-500" : ""}`}
               />
               {errors.title && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                   {errors.title.message}
                 </p>
               )}
@@ -135,7 +135,7 @@ const CreateCourse = () => {
             <div>
               <label
                 htmlFor="subtitle"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Course Subtitle
               </label>
@@ -143,7 +143,7 @@ const CreateCourse = () => {
                 id="subtitle"
                 type="text"
                 {...register("subtitle")}
-                className="mt-1 input"
+                className="mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white"
               />
             </div>
 
@@ -151,7 +151,7 @@ const CreateCourse = () => {
             <div>
               <label
                 htmlFor="description"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Course Description <span className="text-red-500">*</span>
               </label>
@@ -161,12 +161,12 @@ const CreateCourse = () => {
                 {...register("description", {
                   required: "Description is required",
                 })}
-                className={`mt-1 input ${
-                  errors.description ? "border-red-300" : ""
+                className={`mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white ${
+                  errors.description ? "border-red-300 dark:border-red-500" : ""
                 }`}
               />
               {errors.description && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                   {errors.description.message}
                 </p>
               )}
@@ -176,15 +176,15 @@ const CreateCourse = () => {
             <div>
               <label
                 htmlFor="category"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Category <span className="text-red-500">*</span>
               </label>
               <select
                 id="category"
                 {...register("category", { required: "Category is required" })}
-                className={`mt-1 input ${
-                  errors.category ? "border-red-300" : ""
+                className={`mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white ${
+                  errors.category ? "border-red-300 dark:border-red-500" : ""
                 }`}
               >
                 <option value="">Select a category</option>
@@ -195,7 +195,7 @@ const CreateCourse = () => {
                 ))}
               </select>
               {errors.category && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                   {errors.category.message}
                 </p>
               )}
@@ -205,14 +205,14 @@ const CreateCourse = () => {
             <div>
               <label
                 htmlFor="level"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Level <span className="text-red-500">*</span>
               </label>
               <select
                 id="level"
                 {...register("level", { required: "Level is required" })}
-                className={`mt-1 input ${errors.level ? "border-red-300" : ""}`}
+                className={`mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white ${errors.level ? "border-red-300 dark:border-red-500" : ""}`}
               >
                 {LEVELS.map((level) => (
                   <option key={level.value} value={level.value}>
@@ -221,7 +221,7 @@ const CreateCourse = () => {
                 ))}
               </select>
               {errors.level && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                   {errors.level.message}
                 </p>
               )}
@@ -231,7 +231,7 @@ const CreateCourse = () => {
             <div>
               <label
                 htmlFor="price"
-                className="block text-sm font-medium text-secondary-700"
+                className="block text-sm font-medium text-secondary-700 dark:text-secondary-300"
               >
                 Price (₹) <span className="text-red-500">*</span>
               </label>
@@ -244,10 +244,10 @@ const CreateCourse = () => {
                   required: "Price is required",
                   min: { value: 0, message: "Price cannot be negative" },
                 })}
-                className={`mt-1 input ${errors.price ? "border-red-300" : ""}`}
+                className={`mt-1 input dark:bg-secondary-700 dark:border-secondary-600 dark:text-white ${errors.price ? "border-red-300 dark:border-red-500" : ""}`}
               />
               {errors.price && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                   {errors.price.message}
                 </p>
               )}
@@ -255,7 +255,7 @@ const CreateCourse = () => {
 
             {/* Thumbnail */}
             <div>
-              <label className="block text-sm font-medium text-secondary-700">
+              <label className="block text-sm font-medium text-secondary-700 dark:text-secondary-300">
                 Course Thumbnail <span className="text-red-500">*</span>
               </label>
 

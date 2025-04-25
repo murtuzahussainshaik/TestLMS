@@ -59,14 +59,14 @@ const CourseFilter = ({ filters, onChange }) => {
   const FilterSection = ({ children, title }) => (
     <Disclosure
       as="div"
-      className="border-b border-secondary-200 py-6"
+      className="border-b border-secondary-200 dark:border-secondary-700 py-6"
       defaultOpen={true}
     >
       {({ open }) => (
         <>
           <h3 className="flow-root">
-            <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-secondary-400 hover:text-secondary-500">
-              <span className="font-medium text-secondary-900">{title}</span>
+            <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-secondary-400 hover:text-secondary-500 dark:text-secondary-500 dark:hover:text-secondary-400">
+              <span className="font-medium text-secondary-900 dark:text-secondary-100">{title}</span>
               <span className="ml-6 flex items-center">
                 <ChevronUpIcon
                   className={`h-5 w-5 ${open ? "rotate-180 transform" : ""}`}
@@ -82,7 +82,7 @@ const CourseFilter = ({ filters, onChange }) => {
   );
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4">
+    <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm p-4">
       {/* Mobile filter dialog */}
       <Transition.Root show={mobileFiltersOpen} as={Fragment}>
         <Dialog
@@ -112,14 +112,14 @@ const CourseFilter = ({ filters, onChange }) => {
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl">
+              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white dark:bg-secondary-800 py-4 pb-6 shadow-xl">
                 <div className="flex items-center justify-between px-4">
-                  <h2 className="text-lg font-medium text-secondary-900">
+                  <h2 className="text-lg font-medium text-secondary-900 dark:text-secondary-100">
                     Filters
                   </h2>
                   <button
                     type="button"
-                    className="flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-secondary-400 hover:bg-secondary-50"
+                    className="flex h-10 w-10 items-center justify-center rounded-md bg-white dark:bg-secondary-700 p-2 text-secondary-400 dark:text-secondary-500 hover:bg-secondary-50 dark:hover:bg-secondary-600"
                     onClick={() => setMobileFiltersOpen(false)}
                   >
                     <span className="sr-only">Close menu</span>
@@ -131,7 +131,7 @@ const CourseFilter = ({ filters, onChange }) => {
                 <div className="mt-4 px-4 space-y-6">
                   {/* Categories */}
                   <div>
-                    <h3 className="font-medium text-secondary-900">
+                    <h3 className="font-medium text-secondary-900 dark:text-secondary-100">
                       Categories
                     </h3>
                     <div className="mt-4 space-y-2">
@@ -141,7 +141,7 @@ const CourseFilter = ({ filters, onChange }) => {
                             id={`mobile-category-${category}`}
                             name={`category-${category}`}
                             type="checkbox"
-                            className="h-4 w-4 rounded border-secondary-300 text-primary-600 focus:ring-primary-500"
+                            className="input-checkbox"
                             checked={filters.categories.includes(category)}
                             onChange={(e) =>
                               handleCategoryChange(category, e.target.checked)
@@ -149,7 +149,7 @@ const CourseFilter = ({ filters, onChange }) => {
                           />
                           <label
                             htmlFor={`mobile-category-${category}`}
-                            className="ml-3 text-sm text-secondary-600"
+                            className="ml-3 text-sm text-secondary-600 dark:text-secondary-400"
                           >
                             {category}
                           </label>
@@ -160,7 +160,7 @@ const CourseFilter = ({ filters, onChange }) => {
 
                   {/* Level */}
                   <div>
-                    <h3 className="font-medium text-secondary-900">Level</h3>
+                    <h3 className="font-medium text-secondary-900 dark:text-secondary-100">Level</h3>
                     <div className="mt-4 space-y-2">
                       {levels.map((level) => (
                         <div key={level.value} className="flex items-center">
@@ -168,14 +168,14 @@ const CourseFilter = ({ filters, onChange }) => {
                             id={`mobile-level-${level.value}`}
                             name="level"
                             type="radio"
-                            className="h-4 w-4 border-secondary-300 text-primary-600 focus:ring-primary-500"
+                            className="input-radio"
                             value={level.value}
                             checked={filters.level === level.value}
                             onChange={() => onChange({ level: level.value })}
                           />
                           <label
                             htmlFor={`mobile-level-${level.value}`}
-                            className="ml-3 text-sm text-secondary-600"
+                            className="ml-3 text-sm text-secondary-600 dark:text-secondary-400"
                           >
                             {level.label}
                           </label>
@@ -186,7 +186,7 @@ const CourseFilter = ({ filters, onChange }) => {
 
                   {/* Price Range */}
                   <div>
-                    <h3 className="font-medium text-secondary-900">
+                    <h3 className="font-medium text-secondary-900 dark:text-secondary-100">
                       Price Range
                     </h3>
                     <div className="mt-4 space-y-2">
@@ -196,7 +196,7 @@ const CourseFilter = ({ filters, onChange }) => {
                             id={`mobile-price-${range.value}`}
                             name="price"
                             type="radio"
-                            className="h-4 w-4 border-secondary-300 text-primary-600 focus:ring-primary-500"
+                            className="input-radio"
                             value={range.value}
                             checked={filters.priceRange === range.value}
                             onChange={() =>
@@ -205,7 +205,7 @@ const CourseFilter = ({ filters, onChange }) => {
                           />
                           <label
                             htmlFor={`mobile-price-${range.value}`}
-                            className="ml-3 text-sm text-secondary-600"
+                            className="ml-3 text-sm text-secondary-600 dark:text-secondary-400"
                           >
                             {range.label}
                           </label>
@@ -222,7 +222,7 @@ const CourseFilter = ({ filters, onChange }) => {
 
       {/* Desktop filter sections */}
       <div className="hidden md:block">
-        <h2 className="text-lg font-semibold text-secondary-900 mb-4">
+        <h2 className="text-lg font-semibold text-secondary-900 dark:text-secondary-100 mb-4">
           Filters
         </h2>
 
@@ -230,7 +230,7 @@ const CourseFilter = ({ filters, onChange }) => {
         <div className="mb-6">
           <label
             htmlFor="sort"
-            className="block text-sm font-medium text-secondary-700 mb-2"
+            className="block text-sm font-medium text-secondary-700 dark:text-secondary-300 mb-2"
           >
             Sort by
           </label>
@@ -258,7 +258,7 @@ const CourseFilter = ({ filters, onChange }) => {
                   id={`category-${category}`}
                   name={`category-${category}`}
                   type="checkbox"
-                  className="h-4 w-4 rounded border-secondary-300 text-primary-600 focus:ring-primary-500"
+                  className="input-checkbox"
                   checked={filters.categories.includes(category)}
                   onChange={(e) =>
                     handleCategoryChange(category, e.target.checked)
@@ -266,7 +266,7 @@ const CourseFilter = ({ filters, onChange }) => {
                 />
                 <label
                   htmlFor={`category-${category}`}
-                  className="ml-3 text-sm text-secondary-600"
+                  className="ml-3 text-sm text-secondary-600 dark:text-secondary-400"
                 >
                   {category}
                 </label>
@@ -284,14 +284,14 @@ const CourseFilter = ({ filters, onChange }) => {
                   id={`level-${level.value}`}
                   name="level"
                   type="radio"
-                  className="h-4 w-4 border-secondary-300 text-primary-600 focus:ring-primary-500"
+                  className="input-radio"
                   value={level.value}
                   checked={filters.level === level.value}
                   onChange={() => onChange({ level: level.value })}
                 />
                 <label
                   htmlFor={`level-${level.value}`}
-                  className="ml-3 text-sm text-secondary-600"
+                  className="ml-3 text-sm text-secondary-600 dark:text-secondary-400"
                 >
                   {level.label}
                 </label>
@@ -302,7 +302,7 @@ const CourseFilter = ({ filters, onChange }) => {
             {filters.level && (
               <button
                 type="button"
-                className="mt-1 text-xs text-primary-600 hover:text-primary-500"
+                className="mt-1 text-xs text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400"
                 onClick={() => onChange({ level: "" })}
               >
                 Clear selection
@@ -320,14 +320,14 @@ const CourseFilter = ({ filters, onChange }) => {
                   id={`price-${range.value}`}
                   name="price"
                   type="radio"
-                  className="h-4 w-4 border-secondary-300 text-primary-600 focus:ring-primary-500"
+                  className="input-radio"
                   value={range.value}
                   checked={filters.priceRange === range.value}
                   onChange={() => onChange({ priceRange: range.value })}
                 />
                 <label
                   htmlFor={`price-${range.value}`}
-                  className="ml-3 text-sm text-secondary-600"
+                  className="ml-3 text-sm text-secondary-600 dark:text-secondary-400"
                 >
                   {range.label}
                 </label>
@@ -338,7 +338,7 @@ const CourseFilter = ({ filters, onChange }) => {
             {filters.priceRange && (
               <button
                 type="button"
-                className="mt-1 text-xs text-primary-600 hover:text-primary-500"
+                className="mt-1 text-xs text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400"
                 onClick={() => onChange({ priceRange: "" })}
               >
                 Clear selection
@@ -352,11 +352,11 @@ const CourseFilter = ({ filters, onChange }) => {
       <div className="md:hidden">
         <button
           type="button"
-          className="flex w-full items-center justify-center space-x-2 rounded-md border border-secondary-300 bg-white py-3 px-4 text-sm font-medium text-secondary-700 shadow-sm hover:bg-secondary-50"
+          className="flex w-full items-center justify-center space-x-2 rounded-md border border-secondary-300 dark:border-secondary-600 bg-white dark:bg-secondary-700 py-3 px-4 text-sm font-medium text-secondary-700 dark:text-secondary-300 shadow-sm hover:bg-secondary-50 dark:hover:bg-secondary-600"
           onClick={() => setMobileFiltersOpen(true)}
         >
           <FunnelIcon
-            className="h-5 w-5 text-secondary-400"
+            className="h-5 w-5 text-secondary-400 dark:text-secondary-500"
             aria-hidden="true"
           />
           <span>Filters</span>
