@@ -1,6 +1,7 @@
 import { Course } from "../models/course.model.js";
 import { Lecture } from "../models/lecture.model.js";
 import { User } from "../models/user.model.js";
+import { CourseProgress } from "../models/courseProgress.js";
 import { deleteMediaFromCloudinary, uploadMedia } from "../utils/cloudinary.js";
 import { catchAsync } from "../middleware/error.middleware.js";
 import { AppError } from "../middleware/error.middleware.js";
@@ -398,9 +399,10 @@ export const toggleCoursePublish = catchAsync(async (req, res) => {
  * @route GET /api/v1/courses/enrolled
  */
 export const getMyEnrolledCourses = catchAsync(async (req, res) => {
+  // Find all courses the user is enrolled in
   const user = await User.findById(req.id).populate({
     path: "enrolledCourses.course",
-    select: "title description thumbnail instructor price level category totalLectures",
+    select: "title description thumbnail instructor price level category totalLectures lectures",
     populate: {
       path: "instructor",
       select: "name avatar"
@@ -411,11 +413,42 @@ export const getMyEnrolledCourses = catchAsync(async (req, res) => {
     throw new AppError("User not found", 404);
   }
 
-  // Transform enrolled courses to include enrollment date
-  const enrolledCourses = user.enrolledCourses.map(enrollment => ({
-    ...enrollment.course.toJSON(),
-    enrolledAt: enrollment.enrolledAt
-  }));
+  // Get progress information for each course
+  const enrolledCourses = [];
+  
+  for (const enrollment of user.enrolledCourses) {
+    // Get course with basic data
+    const courseData = enrollment.course.toJSON();
+    
+    // Find progress data
+    const progress = await CourseProgress.findOne({
+      user: req.id,
+      course: enrollment.course._id
+    });
+    
+    // Calculate progress percentage
+    let progressPercentage = 0;
+    let completionStatus = false;
+    
+    if (progress) {
+      const totalLectures = courseData.lectures?.length || 0;
+      const completedLectures = progress.lectureProgress?.filter(lp => lp.isCompleted)?.length || 0;
+      
+      if (totalLectures > 0) {
+        progressPercentage = Math.round((completedLectures / totalLectures) * 100);
+      }
+      
+      completionStatus = progress.isCompleted;
+    }
+    
+    // Add progress data to course
+    enrolledCourses.push({
+      ...courseData,
+      enrolledAt: enrollment.enrolledAt,
+      progress: progressPercentage,
+      isCompleted: completionStatus
+    });
+  }
 
   res.status(200).json({
     success: true,
