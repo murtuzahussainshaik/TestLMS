@@ -399,21 +399,26 @@ export const toggleCoursePublish = catchAsync(async (req, res) => {
  */
 export const getMyEnrolledCourses = catchAsync(async (req, res) => {
   const user = await User.findById(req.id).populate({
-    path: "enrolledCourses",
-    select: "title subtitle description category level price thumbnail instructor totalDuration",
+    path: "enrolledCourses.course",
+    select: "title description thumbnail instructor price level category totalLectures",
     populate: {
       path: "instructor",
-      select: "name avatar",
-    },
+      select: "name avatar"
+    }
   });
 
   if (!user) {
     throw new AppError("User not found", 404);
   }
 
+  // Transform enrolled courses to include enrollment date
+  const enrolledCourses = user.enrolledCourses.map(enrollment => ({
+    ...enrollment.course.toJSON(),
+    enrolledAt: enrollment.enrolledAt
+  }));
+
   res.status(200).json({
     success: true,
-    count: user.enrolledCourses.length,
-    data: user.enrolledCourses,
+    data: enrolledCourses
   });
 });

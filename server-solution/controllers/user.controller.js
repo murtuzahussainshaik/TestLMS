@@ -72,7 +72,11 @@ export const getCurrentUserProfile = catchAsync(async (req, res) => {
   const user = await User.findById(req.id)
     .populate({
       path: "enrolledCourses.course",
-      select: "title description thumbnail",
+      select: "title description thumbnail instructor price level category totalLectures",
+      populate: {
+        path: "instructor",
+        select: "name avatar"
+      }
     })
     .populate({
       path: "createdCourses",
@@ -83,12 +87,19 @@ export const getCurrentUserProfile = catchAsync(async (req, res) => {
     throw new AppError("User not found", 404);
   }
 
+  // Transform enrolled courses to include enrollment date
+  const transformedUser = {
+    ...user.toJSON(),
+    enrolledCourses: user.enrolledCourses.map(enrollment => ({
+      ...enrollment.course,
+      enrolledAt: enrollment.enrolledAt
+    })),
+    totalEnrolledCourses: user.totalEnrolledCourses,
+  };
+
   res.status(200).json({
     success: true,
-    data: {
-      ...user.toJSON(),
-      totalEnrolledCourses: user.totalEnrolledCourses,
-    },
+    data: transformedUser
   });
 });
 
