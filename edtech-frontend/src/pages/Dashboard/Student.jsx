@@ -165,7 +165,7 @@ const StudentDashboard = () => {
         </div>
       </div>
 
-      {/* My courses section */}
+      {/* My courses section - ONLY SHOW IF USER HAS ENROLLED COURSES */}
       <div className="px-4 sm:px-6 lg:px-8 mb-8">
         <h2 className="text-lg font-medium text-secondary-900 dark:text-white mb-4">
           My Courses
@@ -200,7 +200,7 @@ const StudentDashboard = () => {
         )}
       </div>
 
-      {/* Recommended courses section */}
+      {/* Recommended courses section - Always show as they are suggestions */}
       {publishedData?.data && publishedData.data.length > 0 && (
         <div className="px-4 sm:px-6 lg:px-8">
           <h2 className="text-lg font-medium text-secondary-900 dark:text-white mb-4">
