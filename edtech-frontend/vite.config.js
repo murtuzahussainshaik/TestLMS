@@ -21,14 +21,14 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api/v1": {
-        target: "http://localhost:8000",
+        target: process.env.VITE_API_URL || "https://testlms-qjox.onrender.com",
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
       "/health": {
-        target: "http://localhost:8000",
+        target: process.env.VITE_API_URL || "https://testlms-qjox.onrender.com",
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },
