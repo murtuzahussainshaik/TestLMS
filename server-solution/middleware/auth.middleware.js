@@ -4,8 +4,13 @@ import { catchAsync } from "./error.middleware.js";
 import { User } from "../models/user.model.js";
 
 export const isAuthenticated = catchAsync(async (req, res, next) => {
-  // Check if token exists in cookies
-  const token = req.cookies.token;
+  // Check for token in cookies or Authorization header
+  let token = req.cookies.token;
+  
+  if (!token && req.headers.authorization?.startsWith('Bearer ')) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+
   if (!token) {
     throw new AppError(
       "You are not logged in. Please log in to get access.",
