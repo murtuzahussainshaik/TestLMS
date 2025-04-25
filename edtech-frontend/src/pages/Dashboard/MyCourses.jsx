@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { courseService } from "../../services/courseService";
+import { progressService } from "../../services/progressService";
 import Loader from "../../components/common/Loader";
 import EmptyState from "../../components/common/EmptyState";
 import ErrorState from "../../components/common/ErrorState";
@@ -57,12 +58,23 @@ const MyCourses = () => {
         
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {courses.map((course) => (
-            <CourseCard 
-              key={course._id} 
-              course={course} 
-              linkTo={`/dashboard/course/${course._id}`}
-              buttonText="Continue Learning"
-            />
+            <div key={course._id} className="flex flex-col">
+              <CourseCard 
+                course={course} 
+                linkTo={`/dashboard/course/${course._id}`}
+                buttonText="Continue Learning"
+              />
+              <div className="mt-2 w-full bg-secondary-200 dark:bg-secondary-700 rounded-full h-2.5">
+                <div 
+                  className="bg-primary-600 h-2.5 rounded-full" 
+                  style={{ width: `${course.progress || 0}%` }}
+                ></div>
+              </div>
+              <div className="mt-1 flex justify-between text-xs text-secondary-500 dark:text-secondary-400">
+                <span>Progress</span>
+                <span>{course.progress || 0}%</span>
+              </div>
+            </div>
           ))}
         </div>
         

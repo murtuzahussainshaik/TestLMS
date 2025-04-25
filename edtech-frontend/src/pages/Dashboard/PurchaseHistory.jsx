@@ -14,6 +14,34 @@ const PurchaseHistory = () => {
     queryFn: () => paymentService.getPaymentHistory(),
   });
 
+  // Function to get status display values
+  const getStatusDisplay = (status) => {
+    switch (status) {
+      case "completed":
+        return "Payment Successful";
+      case "pending":
+        return "Payment Pending";
+      case "refunded":
+        return "Refunded";
+      default:
+        return status;
+    }
+  };
+
+  // Function to get status color classes
+  const getStatusColorClasses = (status) => {
+    switch (status) {
+      case "completed":
+        return "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200";
+      case "pending":
+        return "bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200";
+      case "refunded":
+        return "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200";
+      default:
+        return "bg-secondary-100 dark:bg-secondary-700 text-secondary-800 dark:text-secondary-300";
+    }
+  };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -75,7 +103,7 @@ const PurchaseHistory = () => {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-secondary-500 dark:text-secondary-400 uppercase tracking-wider"
                 >
-                  Status
+                  Payment Status
                 </th>
               </tr>
             </thead>
@@ -108,8 +136,8 @@ const PurchaseHistory = () => {
                     {formatPrice(payment.amount)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
-                      {payment.status}
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColorClasses(payment.status)}`}>
+                      {getStatusDisplay(payment.status)}
                     </span>
                   </td>
                 </tr>

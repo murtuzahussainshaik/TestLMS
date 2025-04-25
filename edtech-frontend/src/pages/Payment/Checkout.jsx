@@ -76,7 +76,7 @@ const Checkout = () => {
   if (courseError || !courseData?.data) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-8">
-        <div className="bg-red-50 text-red-600 p-4 rounded-md">
+        <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-4 rounded-md">
           Failed to load course details. Please try again.
         </div>
       </div>
@@ -86,18 +86,18 @@ const Checkout = () => {
   const course = courseData.data;
 
   return (
-    <div className="bg-secondary-50 min-h-screen py-8">
+    <div className="bg-secondary-50 dark:bg-secondary-900 min-h-screen py-8">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-secondary-900">Checkout</h1>
-          <p className="mt-2 text-secondary-600">
+          <h1 className="text-3xl font-bold text-secondary-900 dark:text-white">Checkout</h1>
+          <p className="mt-2 text-secondary-600 dark:text-secondary-400">
             Complete your purchase to access the course
           </p>
         </div>
 
-        <div className="bg-white shadow-md rounded-lg overflow-hidden mb-6">
+        <div className="bg-white dark:bg-secondary-800 shadow-md rounded-lg overflow-hidden mb-6">
           <div className="p-6">
-            <h2 className="text-xl font-bold text-secondary-900 mb-4">
+            <h2 className="text-xl font-bold text-secondary-900 dark:text-white mb-4">
               Order Summary
             </h2>
 
@@ -109,20 +109,20 @@ const Checkout = () => {
                 className="h-16 w-16 object-cover rounded-md"
               />
               <div className="ml-4">
-                <h3 className="font-medium text-secondary-900">
+                <h3 className="font-medium text-secondary-900 dark:text-white">
                   {course.title}
                 </h3>
-                <p className="text-sm text-secondary-500">
+                <p className="text-sm text-secondary-500 dark:text-secondary-400">
                   by {course.instructor?.name || "Instructor"}
                 </p>
               </div>
             </div>
 
             {/* Price breakdown */}
-            <div className="border-t border-b border-secondary-200 py-4 mb-4">
+            <div className="border-t border-b border-secondary-200 dark:border-secondary-700 py-4 mb-4">
               <div className="flex justify-between mb-2">
-                <span className="text-secondary-600">Course Price</span>
-                <span className="text-secondary-900">
+                <span className="text-secondary-600 dark:text-secondary-400">Course Price</span>
+                <span className="text-secondary-900 dark:text-white">
                   {formatPrice(course.price)}
                 </span>
               </div>
@@ -130,8 +130,8 @@ const Checkout = () => {
               {/* You can add discount logic here if needed */}
 
               <div className="flex justify-between font-medium">
-                <span className="text-secondary-900">Total</span>
-                <span className="text-secondary-900">
+                <span className="text-secondary-900 dark:text-white">Total</span>
+                <span className="text-secondary-900 dark:text-white">
                   {formatPrice(course.price)}
                 </span>
               </div>
@@ -139,7 +139,7 @@ const Checkout = () => {
 
             {/* User details */}
             <div className="mb-6">
-              <h3 className="text-lg font-medium text-secondary-900 mb-2">
+              <h3 className="text-lg font-medium text-secondary-900 dark:text-white mb-2">
                 Your Details
               </h3>
               <div className="flex items-center">
@@ -150,17 +150,17 @@ const Checkout = () => {
                     className="h-10 w-10 rounded-full object-cover"
                   />
                 ) : (
-                  <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center">
-                    <span className="text-primary-800 font-medium text-sm">
+                  <div className="h-10 w-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center">
+                    <span className="text-primary-800 dark:text-primary-200 font-medium text-sm">
                       {user?.name?.charAt(0).toUpperCase() || "U"}
                     </span>
                   </div>
                 )}
                 <div className="ml-3">
-                  <p className="text-sm font-medium text-secondary-900">
+                  <p className="text-sm font-medium text-secondary-900 dark:text-white">
                     {user?.name}
                   </p>
-                  <p className="text-xs text-secondary-500">{user?.email}</p>
+                  <p className="text-xs text-secondary-500 dark:text-secondary-400">{user?.email}</p>
                 </div>
               </div>
             </div>
@@ -171,7 +171,7 @@ const Checkout = () => {
                 <>
                   <button
                     onClick={initiatePayment}
-                    className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                    className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-offset-secondary-800"
                     disabled={isLoading}
                   >
                     {isLoading
@@ -181,7 +181,7 @@ const Checkout = () => {
 
                   <button
                     onClick={handleCancel}
-                    className="w-full flex justify-center items-center py-3 px-4 border border-secondary-300 rounded-md shadow-sm text-sm font-medium text-secondary-700 bg-white hover:bg-secondary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500"
+                    className="w-full flex justify-center items-center py-3 px-4 border border-secondary-300 dark:border-secondary-600 rounded-md shadow-sm text-sm font-medium text-secondary-700 dark:text-secondary-300 bg-white dark:bg-secondary-800 hover:bg-secondary-50 dark:hover:bg-secondary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500 dark:focus:ring-offset-secondary-800"
                   >
                     Cancel
                   </button>
@@ -198,8 +198,8 @@ const Checkout = () => {
           </div>
 
           {/* Security note */}
-          <div className="bg-secondary-50 px-6 py-4 flex items-center text-xs text-secondary-500">
-            <ShieldCheckIcon className="h-4 w-4 text-secondary-400 mr-2" />
+          <div className="bg-secondary-50 dark:bg-secondary-900/50 px-6 py-4 flex items-center text-xs text-secondary-500 dark:text-secondary-400">
+            <ShieldCheckIcon className="h-4 w-4 text-secondary-400 dark:text-secondary-500 mr-2" />
             <span>
               Your payment information is processed securely. We do not store
               credit card details.
