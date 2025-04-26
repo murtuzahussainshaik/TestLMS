@@ -120,9 +120,10 @@ const Home = () => {
             </div>
             <div className="md:w-1/2">
               <img
-                src="/api/placeholder/600/400"
+                src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80"
                 alt="Students learning online"
-                className="rounded-lg shadow-xl"
+                className="rounded-lg shadow-xl w-full h-full object-cover h-80 md:h-96"
+                style={{ background : "linear-gradient(90deg, #3730a3 0%, #312e81 100%)"}}
               />
             </div>
           </div>

@@ -11,10 +11,10 @@ const About = () => {
   // Team members data
   const teamMembers = [
     {
-      name: "Rajesh Kumar",
+      name: "Murtuza Hussain Shaik",
       role: "Founder & CEO",
-      bio: "With over 15 years of experience in education and technology, Rajesh founded EduTech with a vision to democratize quality education.",
-      avatar: "https://randomuser.me/api/portraits/men/1.jpg",
+      bio: "With over 15 years of experience in education and technology, Murtuza founded EduTech with a vision to democratize quality education.",
+      avatar: "https://media.licdn.com/dms/image/v2/D5603AQHvFuHyop861A/profile-displayphoto-shrink_200_200/B56ZZHjWEeHoAY-/0/1744957171514?e=1750896000&v=beta&t=deY3mzaYOskWI60Kf3KHw4IYH2M9LnjG37suMNnAsRU",
     },
     {
       name: "Priya Sharma",
@@ -87,9 +87,9 @@ const About = () => {
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
               <img
-                src="/api/placeholder/600/400"
+                src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80"
                 alt="Our journey"
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-xl object-cover w-full h-80 md:h-96"
               />
             </div>
             <div className="md:w-1/2">
@@ -154,7 +154,7 @@ const About = () => {
       </div>
 
       {/* Team Section */}
-      <div className="bg-white dark:bg-secondary-800 py-16">
+      {/* <div className="bg-white dark:bg-secondary-800 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-secondary-900 dark:text-secondary-100">
@@ -188,7 +188,7 @@ const About = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Join Us Section */}
       <div className="bg-primary-700 text-white py-16">
